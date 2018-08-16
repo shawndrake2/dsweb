@@ -1,5 +1,4 @@
-<?
-// Character class
+<?php // Character class
 class CharacterSearch
 {
     private $DB;
@@ -42,8 +41,7 @@ class CharacterSearch
                 acc.status as acc_status,
                 acc.priv as acc_privledges,
 
-                session.partyid as session_partyid,
-                session.linkshellid as session_linkshellid,
+                session.linkshellid1 as session_linkshellid,
                 session.client_addr as session_ip,
                 session.client_port as session_port,
 
@@ -139,7 +137,7 @@ class CharacterSearch
         $BindVar = [ ':id' => [$ID, PDO::PARAM_INT, 32] ];
 
         // List of tables to query
-        $TableList = [ 'effects', 'equip', 'exp', 'inventory', 'jobs', 'look', 'pet', 'points', 'profile', 'skills', 'stats', 'storage', 'vars', 'weapon_skill_points' ];
+        $TableList = [ 'effects', 'equip', 'exp', 'inventory', 'jobs', 'look', 'pet', 'points', 'profile', 'skills', 'stats', 'storage', 'vars' ];
 
         // Loop and get data
         foreach($TableList as $Table)

@@ -1,5 +1,4 @@
-<?
-// Config+Init
+<?php // Config+Init
 include '../../config.php';
 
 // Get vars
@@ -174,7 +173,7 @@ function searchPrintButtons($Buttons, $Table, $UniqueID)
         // If edit button
         if (in_array('edit', $Buttons))
         {
-            echo '<img src="modules/images/edit26.png" class="search-option" title="edit this entry" data-edit="'. implode(",", [$Table, $UniqueID]) .'" />';
+            echo '<img src="assets/images/edit26.png" class="search-option" title="edit this entry" data-edit="'. implode(",", [$Table, $UniqueID]) .'" />';
         }
 
         // End
@@ -197,4 +196,3 @@ function searchCleanColumns($Columns)
     }
     return $arr;
 }
-?>

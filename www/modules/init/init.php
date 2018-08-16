@@ -1,5 +1,4 @@
-<?
-// Initializes the site with includes, css, js, etc
+<?php // Initializes the site with includes, css, js, etc
 class Init
 {
     private $PHPFiles;

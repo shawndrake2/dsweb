@@ -1,5 +1,4 @@
-<?
-class Times
+<?php class Times
 {
     private $unixtime;
     private $shortern;
@@ -184,4 +183,3 @@ class Times
         }
     }
 }
-?>

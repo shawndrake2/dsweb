@@ -1,5 +1,4 @@
-<?
-
+<?php
 # Class to manage connections.
 class Database
 {

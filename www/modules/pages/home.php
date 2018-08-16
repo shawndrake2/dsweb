@@ -1,5 +1,4 @@
-<?
-// Config+Init
+<?php // Config+Init
 include '../../config.php';
 ?>
 <div class="page">

@@ -1,4 +1,4 @@
-<?
+<?php
 // Main config
 require_once 'config.php';
 
@@ -7,9 +7,9 @@ require_once 'config.php';
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?=SITE_NAME;?></title>
-<? $Site->head(); ?>
+<?php $Site->head(); ?>
 </head><body>
-<header><? $Site->get('header'); ?></header>
+<header><?php $Site->get('header'); ?></header>
 
 <!-- TESTING -->
 <div style="margin:20px 0;">
@@ -18,8 +18,8 @@ require_once 'config.php';
 <!-- TESTING -->
 
 <div class="container">
-    <nav><? $Site->get('nav'); ?></nav>
+    <nav><?php $Site->get('nav'); ?></nav>
     <section id="ajax"></section>
 </div>
-<footer><? $Site->get('footer'); ?></footer>
+<footer><?php $Site->get('footer'); ?></footer>
 </body></html>

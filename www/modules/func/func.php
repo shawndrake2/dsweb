@@ -1,5 +1,4 @@
-<?
-// Functions class
+<?php // Functions class
 class Funcs
 {
     public function duration($seconds)
