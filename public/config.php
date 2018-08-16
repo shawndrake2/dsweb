@@ -7,7 +7,7 @@ use DsWeb\Config;
 // Use minified scripts?
 define ('USE_MINIFIED', false);
 
-$config = new Config();
+$config = Config::getInstance();
 
 #---------------------------------------------------------------
 
@@ -40,7 +40,7 @@ try {
     $Functions = new Funcs();
     $Times = new Times();
     $db = new Database($config->getDbConfig());
-    $Site = new Init($config);
+    $siteObj = new Init($config);
 } catch (Throwable $throwable) {
     echo($throwable->getMessage());
     var_dump($throwable->getTrace());

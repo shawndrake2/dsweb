@@ -11,13 +11,39 @@ class Config
 
     private $assetsConfig;
     private $baseDir;
+    private $configDir;
     private $dbConfig;
 
-    public function getBaseDir() {
+    private static $_instance = null;
+
+    final private function __construct () {}
+    final private function __clone() {}
+
+    final public static function getInstance() : self
+    {
+        static::$_instance = static::$_instance ?? new static();
+        return static::$_instance;
+    }
+
+    final public static function tearDown()
+    {
+        static::$_instance = null;
+    }
+
+    public function getBaseDir() : string
+    {
         if (!$this->baseDir) {
-            $this->baseDir = dirname(__DIR__) . '/' . self::CONFIG_DIR;
+            $this->baseDir = dirname(__DIR__);
         }
         return $this->baseDir;
+    }
+
+    public function getConfigDir() : string
+    {
+        if (!$this->configDir) {
+            $this->configDir = $this->getBaseDir() . '/' . self::CONFIG_DIR;
+        }
+        return $this->configDir;
     }
 
     /** @throws \Exception */
@@ -41,7 +67,7 @@ class Config
     /** @throws \Exception */
     private function fetchConfigFile (string $name, bool $required = false) : ?\stdClass
     {
-        $file = "{$this->getBaseDir()}/${name}.json";
+        $file = "{$this->getConfigDir()}/${name}.json";
         if (!file_exists($file)) {
             if (!$required){
                 return null;

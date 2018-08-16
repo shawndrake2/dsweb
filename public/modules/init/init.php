@@ -13,7 +13,7 @@ class Init
 
     public function __construct(Config $config)
     {
-        global $file_list, $config;
+        global $file_list;
 
         $this->assetsHelper = new AssetsHelper($config);
 
