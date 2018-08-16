@@ -7,6 +7,7 @@ class MainVM extends AbstractVM
     public function __construct(string $siteName, $siteObj)
     {
         $this->siteName = $siteName;
+        $this->nav = new NavVM();
         $this->footer = new FooterVM();
 
         /** @deprecated */
