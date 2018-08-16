@@ -68,7 +68,6 @@ var pages =
     list:
     {
         // Core site
-        home            : 'modules/pages/home.php',
         search          : 'modules/search/search.php',
         searchquery     : 'modules/search/view.search.php',
 
