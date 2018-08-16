@@ -25,7 +25,6 @@ $file_list =
     'php-misc' =>
     [
         'header'    => 'modules/pages/header.php',
-        'footer'    => 'modules/pages/footer.php',
         'nav'       => 'modules/pages/nav.php',
     ]
 ];
