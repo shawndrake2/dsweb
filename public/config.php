@@ -20,11 +20,6 @@ $file_list =
         'modules/func/times.php',
         'modules/pdo/pdo.php',
         'modules/init/init.php',
-    ],
-
-    'php-misc' =>
-    [
-        'header'    => 'modules/pages/header.php'
     ]
 ];
 
