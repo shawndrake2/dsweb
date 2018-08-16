@@ -1,5 +1,9 @@
-<?php // Config+Init
+<?php
+
+require_once '../../../vendor/autoload.php';
+
 include '../../config.php';
+
 ?>
 <div class="page">
 

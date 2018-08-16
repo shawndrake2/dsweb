@@ -1,4 +1,7 @@
-<?php // Config+Init
+<?php
+
+require_once '../../../vendor/autoload.php';
+
 include '../../config.php';
 
 // Get vars
@@ -90,7 +93,7 @@ else
         $Query .= ' LIMIT '. implode(',', [$SearchResultsStart, $SearchResultsMax]);
 
         // Get data from db
-        $Get = $DB->SQL($Query);
+        $Get = $db->SQL($Query);
 
         // Add to results if there was anything
         if ($Get)

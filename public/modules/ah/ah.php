@@ -1,10 +1,13 @@
-<?php // Config+Init
+<?php
+
+require_once '../../../vendor/autoload.php';
+
 include '../../config.php';
 
 class AuctionHouse
 {
     private $Filters;
-    private $DB;
+    private $db;
 
     private $Page = 1;
     private $MaxPerPage = 50;
@@ -139,7 +142,7 @@ class AuctionHouse
 
 }
 
-$AH = new AuctionHouse($DB)
+$AH = new AuctionHouse($db)
 ?>
 <div class="page">
     <h3>Auction House</h3>

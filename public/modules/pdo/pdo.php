@@ -1,4 +1,5 @@
 <?php
+
 # Class to manage connections.
 class Database
 {
@@ -32,26 +33,27 @@ class Database
 	#----------------------#
 	
 	// Connect to the database, requires a key login.
-	public function __construct()
+	public function __construct(stdClass $dbConfig)
     {
-    	global $db_config;
-
-    	if (!is_array($db_config) || !isset($db_config['host']) || !isset($db_config['dbname']) || !isset($db_config['username']) || !isset($db_config['password']))
+    	if (empty($dbConfig->host) ||
+            empty($dbConfig->dbname) ||
+            empty($dbConfig->username) ||
+            empty($dbConfig->password))
     	{
-    		trigger_error("[new Database() > new PDO()] db_config missing information, @db_config = ". print_r($db_config, true), E_USER_ERROR);
+    		trigger_error("[new Database() > new PDO()] db_config missing information, @db_config = ". print_r($dbConfig, true), E_USER_ERROR);
     		return false;
     	}
 
     	// Try connect
         try 
         {
-            $db_config['port'] = isset($db_config['port']) ? $db_config['port'] : 3306;
+            $dbConfig->port = $dbConfig->port ?? 3306;
 
             // Successfull connection sets database variable to hold connection
             $NewDB = new PDO(
-                'mysql:host=' . trim($db_config['host']) . ';port=' . $db_config['port'] . ';dbname=' . trim($db_config['dbname']) . ';charset='. $db_config['charset'],
-            	trim($db_config['username']), 
-            	trim($db_config['password']), 
+                'mysql:host=' . trim($dbConfig->host) . ';port=' . $dbConfig->port . ';dbname=' . trim($dbConfig->dbname) . ';charset='. $dbConfig->charset,
+            	trim($dbConfig->username),
+            	trim($dbConfig->password),
 				array(
 					PDO::ATTR_PERSISTENT => false
 				));

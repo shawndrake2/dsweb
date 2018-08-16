@@ -1,4 +1,9 @@
 <?php
+
+use DsWeb\Config;
+
+require_once '../vendor/autoload.php';
+
 // Main config
 require_once 'config.php';
 
@@ -6,7 +11,7 @@ require_once 'config.php';
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?=SITE_NAME;?></title>
+<title><?= Config::SITE_NAME;?></title>
 <?php $Site->head(); ?>
 </head><body>
 <header><?php $Site->get('header'); ?></header>

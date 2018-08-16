@@ -1,4 +1,7 @@
-<?php // Config+Init
+<?php
+
+require_once '../../../vendor/autoload.php';
+
 include '../../config.php';
 
 // Get vars
@@ -45,7 +48,7 @@ if ($ID)
     ];
     
     // Get character object
-    $Character = (new CharacterSearch($DB))->get($ID, $Options);
+    $Character = (new CharacterSearch($db))->get($ID, $Options);
 
     // If character, include view based on action
     if ($Character)

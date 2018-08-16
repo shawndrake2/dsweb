@@ -1,34 +1,36 @@
-<?php // Initializes the site with includes, css, js, etc
+<?php
+
+use DsWeb\Config;
+use DsWeb\Helper\AssetsHelper;
+
+/** @deprecated **/
 class Init
 {
-    private $PHPFiles;
-    private $CSSFiles;
-    private $JSFiles;
-    private $HostedJS;
-    private $HostedCSS;
+    /** @var AssetsHelper $assetsHelper */
+    private $assetsHelper;
 
-    public function __construct()
+    private $PHPFiles;
+
+    public function __construct(Config $config)
     {
-        global $file_list;
+        global $file_list, $config;
+
+        $this->assetsHelper = new AssetsHelper($config);
 
         $this->PHPFiles     = $file_list['php-misc'];
-        $this->CSSFiles     = $file_list['css'];
-        $this->JSFiles      = $file_list['js'];
-        $this->HostedJS     = $file_list['js-hosted'];
-        $this->HostedCSS    = $file_list['css-hosted'];
     }
 
     public function head()
     {
         // Print hosted CSS files
-        foreach($this->HostedCSS as $css)
+        foreach($this->assetsHelper->getRemoteCss() as $css)
         {
             // Print
             echo '<link rel="stylesheet" type="text/css" href="'. $css .'" />';
         }
 
         // Print CSS Files
-        foreach($this->CSSFiles as $css)
+        foreach($this->assetsHelper->getLocalCss() as $css)
         {
             // Minified check
             $mincss = str_ireplace('.css', '.min.css', $css);
@@ -42,14 +44,14 @@ class Init
         }
 
         // Print Hosted JS files
-        foreach($this->HostedJS as $js)
+        foreach($this->assetsHelper->getRemoteJs() as $js)
         {
             // Print
             echo '<script type="text/javascript" src="'. $js .'"></script>';
         }
 
         // Print JS files
-        foreach($this->JSFiles as $js)
+        foreach($this->assetsHelper->getLocalJs() as $js)
         {
             // Minified check
             $minjs = str_ireplace('.js', '.min.js', $js);

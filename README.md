@@ -8,7 +8,7 @@ Just started, not much to it atm XD
 
 **Requirements**
 - A LAMP stack of sorts, or nginx
-- PHP 5.4
+- PHP 7.2 (Untested on previous versions of 7.*)
 
 **Screenshots**
 - Multi-Search: http://i.imgur.com/objeTIM.png
@@ -35,9 +35,7 @@ Setup
 =====
 Very simple to get started:
 
-- Open ```config.php``` in a text editor
-- At the top, enter your dspdb details into ```$db_config``` replacing whats currently there
+- Open ```config/database.json``` in a text editor
+- Enter your dspdb details replacing whats currently there
 - Upload to same server you have the game running (your public web folder)
 - Done
-
-Any issues or help, make a post on this git!

@@ -1,0 +1,19 @@
+{
+  "name": "shawndrake2/dsweb",
+  "description": "Fork of fedaykinofdune's original dsweb project that serves as a PHP web interface to FFXI Darkstar servers.",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Drake",
+      "email": "shawndrake2@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "DsWeb\\": "src/"
+    }
+  }
+}

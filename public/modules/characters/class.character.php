@@ -1,7 +1,7 @@
 <?php // Character class
 class CharacterSearch
 {
-    private $DB;
+    private $db;
 
     public function __construct($Database)
     {
