@@ -2,8 +2,6 @@
 
 namespace DsWeb\Data;
 
-use DsWeb\Old\Times;
-
 class AuctionHouseData extends AbstractData
 {
     private $filters;

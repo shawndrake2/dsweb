@@ -68,8 +68,8 @@ var pages =
     list:
     {
         // Core site
-        search          : 'modules/search/search.php',
-        searchquery     : 'modules/search/view.search.php',
+        search          : 'search.php',
+        searchquery     : 'data/view.search.php',
 
         // Content related
         account         : 'modules/accounts/accounts.php',

@@ -4,6 +4,9 @@ namespace DsWeb\ViewModel;
 
 use DsWeb\Config;
 use DsWeb\Helper\AssetsHelper;
+use DsWeb\ViewModel\Page\Component\FooterVM;
+use DsWeb\ViewModel\Page\Component\HeaderVM;
+use DsWeb\ViewModel\Page\Component\NavVM;
 
 class MainVM extends AbstractVM
 {

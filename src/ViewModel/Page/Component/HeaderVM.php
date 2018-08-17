@@ -1,6 +1,8 @@
 <?php
 
-namespace DsWeb\ViewModel;
+namespace DsWeb\ViewModel\Page\Component;
+
+use DsWeb\ViewModel\AbstractVM;
 
 class HeaderVM extends AbstractVM
 {
@@ -8,6 +10,6 @@ class HeaderVM extends AbstractVM
     {
         $this->siteName = $siteName;
 
-        $this->setView('header');
+        $this->setView('page/component/header');
     }
 }

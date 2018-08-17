@@ -1,7 +1,8 @@
 <?php
 
-namespace DsWeb\ViewModel;
+namespace DsWeb\ViewModel\Page;
 
+use DsWeb\ViewModel\AbstractVM;
 use DsWeb\ViewModel\Common\ErrorMessageVM;
 
 class AuctionHouseVM extends AbstractVM
@@ -15,6 +16,6 @@ class AuctionHouseVM extends AbstractVM
         $this->numListings = count($listings);
         $this->listings = $listings;
 
-        $this->setView('auction-house');
+        $this->setView('page/auction-house');
     }
 }
