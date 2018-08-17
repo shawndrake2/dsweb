@@ -9,7 +9,15 @@ require_once '../../vendor/autoload.php';
 $params = $_GET;
 
 // Make sure a search string exists
-$searchString = trim($params['query']) ?? null;
+$searchString = $params['query'] ?? null;
+if ($searchString) {
+    $searchString = trim($searchString);
+}
+
+$categoryFilters = $params['categories'] ?? null;
+if ($categoryFilters) {
+    $filters['categories'] = explode(',', trim($categoryFilters)) ?? null;
+}
 
 // If no query exists, error, else all ok!
 if (empty($searchString)) {
@@ -17,7 +25,7 @@ if (empty($searchString)) {
 } else {
     // Start!
     $searchData = new SearchData();
-    $results = $searchData->getSearchResults($searchString);
+    $results = $searchData->getSearchResults($searchString, $filters);
 
 }
 

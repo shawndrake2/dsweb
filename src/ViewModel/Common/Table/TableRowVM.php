@@ -14,9 +14,9 @@ class TableRowVM extends AbstractVM
         }
 
         $fields = [];
-        foreach ($columns as $key => $column) {
+        foreach ($columns as $column) {
             // Style for id
-            $field['width'] = $key === 0 ? '80px' : 'auto';
+            $field['width'] = $column === 'id' ? '80px' : 'auto';
 
             // Get data
             $field['value'] = $data[$column];
