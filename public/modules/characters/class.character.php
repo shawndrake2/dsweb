@@ -1,13 +1,10 @@
-<?php // Character class
-class CharacterSearch
+<?php
+
+use DsWeb\Data\AbstractData;
+use DsWeb\Old\Funcs;
+
+class CharacterSearch extends AbstractData
 {
-    private $db;
-
-    public function __construct($Database)
-    {
-        $this->DB = $Database;
-    }
-
     public function get($ID, array $Options = null)
     {
         // Options

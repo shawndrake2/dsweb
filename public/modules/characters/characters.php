@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../../vendor/autoload.php';
+use DsWeb\Old\Funcs;
 
-include '../../config.php';
+require_once '../../../vendor/autoload.php';
 
 // Get vars
 $Data = $_GET;
@@ -14,7 +14,7 @@ $Data = $_GET;
 
 // Gunna set vars just to clean things up
 $ID       = isset($Data['uid']) ? trim($Data['uid']) : null;
-$Action   = isset($Data['action']) ? trim($Data['action']) : bull;
+$Action   = isset($Data['action']) ? trim($Data['action']) : null;
 
 // Check to make sure an id
 if ($ID)
@@ -54,7 +54,7 @@ if ($ID)
     if ($Character)
     {
         include 'view.'. $Action .'.character.php';
-        Show($Character);
+        Funcs::show($Character);
     }
     else
     {

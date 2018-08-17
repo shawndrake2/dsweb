@@ -1,0 +1,14 @@
+<div class="page">
+    <h3>Auction House</h3>
+    <div>
+        <?php
+        if ($this->numListings > 0) {
+            foreach ($this->listings as $listing) {
+                echo $listing;
+            }
+        } else {
+            echo $this->errorMessage;
+        }
+        ?>
+    </div>
+</div>

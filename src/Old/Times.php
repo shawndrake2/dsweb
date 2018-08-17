@@ -1,4 +1,9 @@
-<?php class Times
+<?php
+
+namespace DsWeb\Old;
+
+/** @deprecated ?? */
+class Times
 {
     private $unixtime;
     private $shortern;

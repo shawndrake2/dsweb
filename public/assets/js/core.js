@@ -75,7 +75,7 @@ var pages =
         account         : 'modules/accounts/accounts.php',
         character       : 'modules/characters/characters.php',
         content         : 'modules/content/content.php',
-        ah              : 'modules/ah/ah.php',
+        ah              : 'ah.php',
     },
 
     go: function(page, data)

@@ -2,8 +2,6 @@
 
 require_once '../../../vendor/autoload.php';
 
-include '../../config.php';
-
 // Get vars
 $Data = $_GET;
 
