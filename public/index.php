@@ -10,7 +10,8 @@ require_once 'config.php';
 
 $siteName = Config::SITE_NAME;
 // siteObj is returned from defunct config.php for now
-$mainVm = new MainVM($siteName, $siteObj);
+
+$mainVm = new MainVM($siteName);
 
 // print to page
 echo $mainVm;

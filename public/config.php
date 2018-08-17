@@ -4,9 +4,6 @@ use DsWeb\Config;
 
 //@TODO Get rid of this file by refactoring into separate classes/configs
 
-// Use minified scripts?
-define ('USE_MINIFIED', false);
-
 $config = Config::getInstance();
 
 #---------------------------------------------------------------
@@ -19,7 +16,6 @@ $file_list =
         'modules/func/func.php',
         'modules/func/times.php',
         'modules/pdo/pdo.php',
-        'modules/init/init.php',
     ]
 ];
 
@@ -33,7 +29,6 @@ try {
     $Functions = new Funcs();
     $Times = new Times();
     $db = new Database($config->getDbConfig());
-    $siteObj = new Init($config);
 } catch (Throwable $throwable) {
     echo($throwable->getMessage());
     var_dump($throwable->getTrace());

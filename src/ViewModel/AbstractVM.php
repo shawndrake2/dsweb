@@ -5,7 +5,7 @@ namespace DsWeb\ViewModel;
 use DsWeb\Config;
 use Zend\View\Model\ViewModel;
 
-class AbstractVM extends ViewModel
+abstract class AbstractVM extends ViewModel
 {
     const TEMPLATE_DIR = 'view';
 

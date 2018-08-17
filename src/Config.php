@@ -9,6 +9,9 @@ class Config
     const SITE_NAME = 'DsWeb';
     const SITE_URL = 'dsweb.local';
 
+    // Use minified scripts?
+    const USE_MINIFIED = false;
+
     private $assetsConfig;
     private $baseDir;
     private $configDir;

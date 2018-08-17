@@ -5,7 +5,11 @@
         <title>
             <?= $this->siteName; ?>
         </title>
-        <?php $this->siteObj->head(); ?>
+        <?php
+        foreach ($this->assets as $asset) {
+            echo $asset;
+        }
+        ?>
     </head>
     <body>
         <?= $this->header; ?>
