@@ -2,7 +2,7 @@
 
 namespace DsWeb;
 
-use DsWeb\Old\Funcs;
+use DsWeb\Helper\TimeHelper;
 
 class Character
 {
@@ -46,6 +46,9 @@ class Character
     public function getRotation() { return $this->rotation; }
     public function getPosition() { return $this->position; }
     public function getBoundary() { return $this->boundary; }
-    public function getPlaytime() { return (new Funcs)->duration($this->playtime); }
+    public function getPlaytime() {
+        $timeHelper = new TimeHelper();
+        return $timeHelper->getPlaytimeAsString($this->playtime);
+    }
     public function getGMLevel() { return $this->gmlevel; }
 }

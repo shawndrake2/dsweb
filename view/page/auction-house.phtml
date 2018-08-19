@@ -2,13 +2,29 @@
     <h3>Auction House</h3>
     <div>
         <?php
-        if ($this->numListings > 0) {
+        if ($this->numListings > 0) :
+        ?>
+            <table class="generic-table" cellspacing="0" border="0" cellpadding="10">
+                <tr class="generic-table-header">
+                    <td width="2%" align="center" style="color:#888;">#</td>
+                    <td width="2%" align="center">Icon</td>
+                    <td width="25%">Item</td>
+                    <td width="2%" align="center">Stack</td>
+                    <td width="10%" align="right">Price</td>
+                    <td width="15%">List Date</td>
+                    <td width="10%" align="right">Sale</td>
+                    <td width="15%">Sale Date</td>
+                    <td width="10%">Profit</td>
+                    <td width="15%">Character</td>
+                    <td width="15%" align="center" style="color:#A74436;">Actions</td>
+                </tr>
+         <?php
             foreach ($this->listings as $listing) {
                 echo $listing;
             }
-        } else {
+        else :
             echo $this->errorMessage;
-        }
+        endif;
         ?>
     </div>
 </div>
