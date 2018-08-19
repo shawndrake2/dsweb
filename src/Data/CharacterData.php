@@ -2,7 +2,8 @@
 
 namespace DsWeb\Data;
 
-use DsWeb\Character;
+use DsWeb\Entity\Character;
+use DsWeb\Entity\Inventory;
 
 class CharacterData extends AbstractData
 {
@@ -103,7 +104,12 @@ class CharacterData extends AbstractData
             // Final check, if all ok, MAKE DA OBJECTTTTTTTTTTT
             if (!empty($character['main']['id'])) {
                 // Found, set, GO
-                return new Character($character);
+                $characterEntity = new Character($character);
+                // Get inventory now
+                $inventory = $this->getCharacterInventory($id);
+                $characterEntity->setInventory($inventory);
+
+                return $characterEntity;
             }
 
             // Found but was borked?!
@@ -155,5 +161,27 @@ class CharacterData extends AbstractData
 
         // Return data
         return $data;
+    }
+
+    private function getCharacterInventory($id)
+    {
+        $db = $this->getDb();
+        $table = 'char_inventory';
+        $query = "SELECT * FROM ${table} WHERE charid = ?";
+
+        if ($statement = $db->prepare($query)) {
+            $statement->bind_param('i', $id);
+            if ($statement->execute()) {
+                $results = $statement->get_result();
+                $inventoryResults = $results->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+
+        $inventory = new Inventory();
+        foreach ($inventoryResults as $item) {
+            $inventory->setInventoryItem($item);
+        }
+
+        return $inventory;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace DsWeb;
+namespace DsWeb\Entity;
 
 use DsWeb\Helper\TimeHelper;
 
@@ -17,13 +17,17 @@ class Character
     private $playtime;
     private $gmlevel;
 
+    /** @var Account $account */
     public $account;
+
+    /** @var Inventory $inventory */
+    private $inventory;
 
     public function __construct($characterData)
     {
         $this->data = $characterData;
         $this->setupCharacterObject();
-        $this->account = new AccountObject($this->data['acc']);
+        $this->account = new Account($this->data['acc']);
     }
 
     private function setupCharacterObject()
@@ -51,4 +55,13 @@ class Character
         return $timeHelper->getPlaytimeAsString($this->playtime);
     }
     public function getGMLevel() { return $this->gmlevel; }
+
+    public function getInventory() {
+        return $this->inventory;
+    }
+
+    public function setInventory(Inventory $inventory)
+    {
+        $this->inventory = $inventory;
+    }
 }

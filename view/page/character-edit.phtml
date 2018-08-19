@@ -23,8 +23,9 @@
         <tr>
             <td><span class="edit-label">ID</span> <?= $this->character->getID() ;?></td>
             <td><span class="edit-label">Name</span> <?= $this->character->getName() ;?></td>
+            <td><span class="edit-label">Gil</span> <?= $this->gil ;?></td>
             <td><span class="edit-label">Rotation</span> <?= $this->character->getRotation() ;?></td>
-            <td><span class="edit-label">Position</span> <?=json_encode($this->character->getPosition()) ;?></td>
+            <td><span class="edit-label">Position</span> <?= json_encode($this->character->getPosition()) ;?></td>
             <td><span class="edit-label">Boundary</span> <?= $this->character->getBoundary() ;?></td>
             <td><span class="edit-label">Playtime</span> <?= $this->character->getPlaytime() ;?></td>
             <td><span class="edit-label">GMLevel</span> <?= $this->character->getGMLevel() ;?></td>

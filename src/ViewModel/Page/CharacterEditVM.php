@@ -2,7 +2,7 @@
 
 namespace DsWeb\ViewModel\Page;
 
-use DsWeb\Character;
+use DsWeb\Entity\Character;
 use DsWeb\ViewModel\AbstractVM;
 
 class CharacterEditVM extends AbstractVM
@@ -11,6 +11,7 @@ class CharacterEditVM extends AbstractVM
     {
         $this->account = $character->account;
         $this->character = $character;
+        $this->gil = $character->getInventory()->getGil();
 
         $this->setView('page/character-edit');
     }

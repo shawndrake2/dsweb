@@ -1,8 +1,8 @@
 <?php
 
-namespace DsWeb;
+namespace DsWeb\Entity;
 
-class AccountObject
+class Account
 {
     private $id;
     private $name;
