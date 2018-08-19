@@ -6,6 +6,8 @@ class Config
 {
     const CONFIG_DIR = 'config';
 
+    const SERVER_CONFIG = 'darkstar/conf/map_darkstar.conf';
+
     const SITE_NAME = 'DsWeb';
     const SITE_URL = 'dsweb.local';
 
@@ -80,4 +82,27 @@ class Config
         return json_decode(file_get_contents($file));
     }
 
+    private function getServerConfigPath()
+    {
+        return dirname($this->getBaseDir()) . '/' . self::SERVER_CONFIG;
+    }
+
+    /**
+     * This may not be run on the same server as Darkstar FFXI
+     */
+    public function serverConfigPresent()
+    {
+        if (file_exists($this->getServerConfigPath())) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getServerConfig()
+    {
+        if ($this->serverConfigPresent()) {
+            return file($this->getServerConfigPath());
+        }
+        return false;
+    }
 }
