@@ -68,9 +68,7 @@ var pages =
         searchquery: 'data/view.search.php',
 
         // Content related
-        account: 'modules/accounts/accounts.php',
-        character: 'modules/characters/characters.php',
-        content: 'modules/content/content.php',
+        character: 'character.php',
         ah: 'ah.php',
         server: 'server.php'
       },

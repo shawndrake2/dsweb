@@ -17,12 +17,6 @@ class Funcs
         return $String;
     }
 
-    // Global functions
-    public static function show($data)
-    {
-        echo '<pre>' . print_r($data, true) . '</pre>';
-    }
-
     // Seconds to time
     public static function secondsToTime($inputSeconds)
     {

@@ -1,11 +1,13 @@
 <?php
 
-use DsWeb\Old\Funcs;
+use DsWeb\Data\CharacterData;
+use DsWeb\ViewModel\Common\ErrorMessageVM;
+use DsWeb\ViewModel\Page\CharacterEditVM;
 
-require_once '../../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 // Get vars
-$Data = $_GET;
+$data = $_GET;
 
 /*
     This file is specifically for characters, so things can be a bit
@@ -13,18 +15,12 @@ $Data = $_GET;
 */
 
 // Gunna set vars just to clean things up
-$ID       = isset($Data['uid']) ? trim($Data['uid']) : null;
-$Action   = isset($Data['action']) ? trim($Data['action']) : null;
+$id       = isset($data['uid']) ? trim($data['uid']) : null;
+$action   = isset($data['action']) ? trim($data['action']) : null;
 
 // Check to make sure an id
-if ($ID)
-{
-    // Include character class
-    include 'class.character.php';
-
-    // Options
-    $Options = 
-    [
+if ($id) {
+    $options = [
         // Full includes things like account, session, zone, etc.
         'full'      => true,
 
@@ -44,25 +40,25 @@ if ($ID)
         'vars'      => true,
 
         // Silly long one!
-        'weapon_skill_points'     => true,
+        'weapon_skill_points'     => true
     ];
     
     // Get character object
-    $Character = (new CharacterSearch($db))->get($ID, $Options);
+    $characterSearch = new CharacterData();
+    $character = $characterSearch->get($id, $options);
 
     // If character, include view based on action
-    if ($Character)
-    {
-        include 'view.'. $Action .'.character.php';
-        Funcs::show($Character);
+    if ($character) {
+        $characterEditVM = new CharacterEditVM($character);
+        echo $characterEditVM;
+        var_dump($character);
+    } else {
+        $errorMessageVM = new ErrorMessageVM('Character could not be found.');
     }
-    else
-    {
-        echo '<div class="error" style="margin:30px;">Character could not be found.</div>';
-    }
+} else {
+    $errorMessageVM = new ErrorMessageVM('No character ID set.');
 }
-else
-{
-    echo '<div class="error" style="margin:30px;">No character ID set.</div>';
+
+if (!empty($errorMessageVM)) {
+    echo $errorMessageVM;
 }
-?>
