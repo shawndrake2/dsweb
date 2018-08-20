@@ -1,0 +1,71 @@
+<?php
+
+namespace DsWeb\Data\Mapping;
+
+class AHMapping
+{
+    const ALCHEMY = 44;
+    const ALCHEMY_2 = 63;
+    const AMMUNITION = 15;
+    const AUTOMATON = 61;
+    const AXES = 5;
+    const BACK = 26;
+    const BEASTMADE = 50;
+    const BLACK_MAGIC = 29;
+    const BODY = 18;
+    const BONECRAFT = 42;
+    const BREADS_AND_RICE = 56;
+    const CARDS = 36;
+    const CLOTHCRAFT = 40;
+    const CLUBS = 11;
+    const CRYSTALS = 35;
+    const CURSED_ITEMS = 37;
+    const DAGGERS = 2;
+    const DICE = 60;
+    const DRINKS = 58;
+    const EARRINGS = 24;
+    const FEET = 21;
+    const FISH = 51;
+    const FISHING_GEAR = 47;
+    const FURNISHINGS = 34;
+    const GEOMANCY = 45;
+    const GOLDSMITHING = 39;
+    const GREAT_AXES = 6;
+    const GREAT_KATANA = 10;
+    const GREAT_SWORDS = 4;
+    const GRIPS = 62;
+    const HAND_TO_HAND = 1;
+    const HANDS = 19;
+    const HEAD = 17;
+    const INGREDIENTS = 59;
+    const INSTRUMENTS = 14;
+    const KATANA = 9;
+    const LEATHERCRAFT = 41;
+    const LEGS = 20;
+    const MEAT_AND_EGGS = 52;
+    const MEDICINES = 33;
+    const MISC = 46;
+    const MISC_2 = 64;
+    const MISC_3 = 65;
+    const NECK = 22;
+    const NINJA_TOOLS = 49;
+    const NINJITSU = 31;
+    const PET_ITEMS = 48;
+    const POLEARMS = 8;
+    const RANGED = 13;
+    const RINGS = 25;
+    const SCYTHES = 7;
+    const SEAFOOD = 53;
+    const SHIELDS = 16;
+    const SMITHING = 38;
+    const SONGS = 32;
+    const SOUPS = 55;
+    const STAVES = 12;
+    const SUMMONING = 30;
+    const SWEETS = 57;
+    const SWORDS = 3;
+    const VEGETABLES = 54;
+    const WAIST = 23;
+    const WHITE_MAGIC = 28;
+    const WOODWORKING = 43;
+}

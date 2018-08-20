@@ -6,6 +6,7 @@ class Config
 {
     const CONFIG_DIR = 'config';
 
+    const AH_CONFIG = 'darkstar/conf/search_server.conf';
     const SERVER_CONFIG = 'darkstar/conf/map_darkstar.conf';
 
     const SITE_NAME = 'DsWeb';
@@ -102,6 +103,30 @@ class Config
     {
         if ($this->serverConfigPresent()) {
             return file($this->getServerConfigPath());
+        }
+        return false;
+    }
+
+    private function getAuctionHouseConfigPath()
+    {
+        return dirname($this->getBaseDir()) . '/' . self::AH_CONFIG;
+    }
+
+    /**
+     * This may not be run on the same server as Darkstar FFXI
+     */
+    public function auctionHouseConfigPresent()
+    {
+        if (file_exists($this->getAuctionHouseConfigPath())) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getAuctionHouseConfig()
+    {
+        if ($this->auctionHouseConfigPresent()) {
+            return file($this->getAuctionHouseConfigPath());
         }
         return false;
     }

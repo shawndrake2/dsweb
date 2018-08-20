@@ -2,6 +2,7 @@
 
 namespace DsWeb\ViewModel\Page\Search;
 
+use DsWeb\Helper\AuctionHouseBotHelper;
 use DsWeb\Helper\TimeHelper;
 use DsWeb\ViewModel\AbstractVM;
 
@@ -17,7 +18,7 @@ class AuctionHouseListingVM extends AbstractVM
         $itemId = $listing['item_id'];
         $this->icon = "http://static.ffxiah.com/images/icon/${itemId}.png";
 
-        $this->stack = $listing['ah_stack'] === 0 ? '&#215;' : '&#10003;';
+        $this->stack = (int) $listing['ah_stack'] === 0 ? '&#215;' : '&#10003;';
 
         $timeHelper = new TimeHelper();
         $this->listingTime = $timeHelper->getAuctionTimeAsString($listing['ah_date']);
@@ -48,6 +49,8 @@ class AuctionHouseListingVM extends AbstractVM
         }
 
         $this->actions = $actions;
+
+        $this->characterName = $listing['character_name'] ?? AuctionHouseBotHelper::BOT_NAME;
 
         $this->setView('page/search/auction-house-listing');
     }

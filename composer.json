@@ -11,6 +11,7 @@
   "require": {
     "php": ">=7.2",
     "ext-json": "*",
+    "ext-mysqli": "*",
     "zendframework/zend-view": "^2.10"
   },
   "autoload": {
