@@ -26,4 +26,5 @@ echo "TIME STARTED: " . date('F j, Y, g:i a') . PHP_EOL;
 $bot->expireOldBotListings();
 //    $bot->cleanUpAhDeliveryBox();
 $bot->stockRandomAhItems();
+$bot->buyRandomAhItems();
 echo "====================================" . PHP_EOL . PHP_EOL;

@@ -12,6 +12,7 @@ class AuctionHouseBotHelper extends AbstractData
     const BOT_ID = 0;
 
     const AH_ITEMS_TO_TRY = 100;
+    const AH_ITEMS_TO_BUY = 15;
 
     const MAX_ON_AUCTION_NORMAL = 5;
     const MAX_ON_AUCTION_ARMOR = 1;
@@ -180,6 +181,43 @@ class AuctionHouseBotHelper extends AbstractData
                     }
                 }
             }
+        }
+    }
+
+    public function buyRandomAhItems() {
+        $alreadyOnAuction = $this->getCurrentAuctionItems();
+        $ids = array_rand($alreadyOnAuction, self::AH_ITEMS_TO_BUY);
+        foreach ($ids as $id) {
+            $itemToBuy = null;
+            $stack = time() % 2;
+            $sql = "SELECT id, seller_name, price FROM " . self::AH_TABLE . " WHERE itemid = ${id} AND sale = 0";
+            if ((bool) $stack && $alreadyOnAuction[$id]['stack'] > 0) {
+                // buy the stack
+                $sql = "${sql} AND stack = 1";
+            }
+            $result = $this->getDb()->query($sql);
+            if ($result) {
+                $items = $result->fetch_all(MYSQLI_ASSOC);
+                foreach ($items as $item) {
+                    if (empty($itemToBuy)) {
+                        $itemToBuy = $item;
+                    }
+                    if ($itemToBuy['seller_name'] !== self::BOT_NAME) {
+                        $itemToBuy = $item;
+                        break;
+                    }
+                }
+                echo "DEBUG: Buying {$itemToBuy['id']} from {$itemToBuy['seller_name']} for {$itemToBuy['price']} gil" . PHP_EOL;
+                $this->buyItem($itemToBuy['id'], $itemToBuy['price'], $itemToBuy['seller_name']);
+            }
+        }
+    }
+
+    private function buyItem ($id, $price, $seller)
+    {
+        $sql = "UPDATE " . self::AH_TABLE . " SET buyer_name = '" . self::BOT_NAME . "', sale = ${price}, sell_date = " . time() . " WHERE id = ${id}";
+        if ($this->getDb()->query($sql) && $seller !== self::BOT_NAME) {
+            $sql = "INSERT INTO delivery_box"; // TODO FINISH THIS FOR REAL USERS TO GET PAID
         }
     }
 
