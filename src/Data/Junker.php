@@ -7,6 +7,9 @@ class Junker extends AbstractData
     const GIL = 65535;
     const RYKEN = 21828;
 
+    // Unsellable items in game should be priceless, so let's get some cake for them.
+    const PRICELESS = 1000;
+
     const ITEMS_TO_JUNK = [
         'hare_meat' => 4358
     ];
@@ -68,7 +71,11 @@ class Junker extends AbstractData
         $result = $this->getDb()->query($sql);
         if ($result) {
             $price = $result->fetch_row();
-            return (int) $price[0];
+            if ($price > 0) {
+                return (int)$price[0];
+            } else {
+                return self::PRICELESS;
+            }
         }
         return false;
     }
