@@ -98,7 +98,7 @@ class AuctionHouseBotHelper extends AbstractData
         foreach ($ids as $id) {
             $itemToBuy = null;
             $stack = time() % 2;
-            $sql = "SELECT id, seller_name, price FROM " . self::AH_TABLE . " WHERE itemid = ${id} AND sale = 0";
+            $sql = "SELECT id, seller, seller_name, price FROM " . self::AH_TABLE . " WHERE itemid = ${id} AND sale = 0";
             if ((bool) $stack && $alreadyOnAuction[$id]['stack'] > 0) {
                 // buy the stack
                 $sql = "${sql} AND stack = 1";
@@ -116,10 +116,12 @@ class AuctionHouseBotHelper extends AbstractData
                     }
                 }
                 $price = $itemToBuy['price'];
+                $sellerId = $itemToBuy['seller'];
+                $sellerName = $itemToBuy['seller_name'];
                 if (($treasuryBalance - $price) > 0) {
-                    echo "DEBUG: Buying {$itemToBuy['id']} from {$itemToBuy['seller_name']} for ${price} gil" . PHP_EOL;
+                    echo "DEBUG: Buying {$itemToBuy['id']} from ${sellerName} for ${price} gil" . PHP_EOL;
                     $treasuryBalance -= $price;
-                    $this->buyItem($itemToBuy['id'], $price, $itemToBuy['seller_name']);
+                    $this->buyItem($itemToBuy['id'], $price, $sellerId, $sellerName);
                 }
             }
         }
@@ -226,12 +228,21 @@ class AuctionHouseBotHelper extends AbstractData
         }
     }
 
-    private function buyItem ($id, $price, $seller)
+    private function buyItem ($id, $price, $sellerId, $sellerName)
     {
         $sql = "UPDATE " . self::AH_TABLE . " SET buyer_name = '" . self::BOT_NAME . "', sale = ${price}, sell_date = " . time() . " WHERE id = ${id}";
         if ($this->getDb()->query($sql)) {
-            if ($seller !== self::BOT_NAME) {
-                $sql = "INSERT INTO delivery_box"; // TODO FINISH THIS FOR REAL USERS TO GET PAID
+            if ($sellerName !== self::BOT_NAME) {
+                $sql = "SELECT * FROM delivery_box WHERE charid = ${sellerId}";
+                if ($result = $this->getDb()->query($sql)) {
+                    $dbox = $result->fetch_all(MYSQLI_ASSOC);
+                    $slot = count($dbox) % 8; // MAX slots
+                }
+                $sql = "INSERT INTO delivery_box (charid, charname, box, slot, itemid, itemsubid, quantity, extra, senderid, sender, received, sent)
+                        VALUES (${sellerId}, '${sellerName}', 1, ${slot}, 65535, 0, ${price}, null, 0, 'AH-Jeuno', 0, 0)";
+                if ($result = $this->getDb()->query($sql)) {
+                    echo "DEBUG: ${sql}";
+                }
             } else {
                 // If the seller is the AHBOT, add the value to the treasury pool
                 $treasuryBalance = $this->getTreasuryBalance() + $price;
