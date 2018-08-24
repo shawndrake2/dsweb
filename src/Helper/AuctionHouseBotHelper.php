@@ -10,6 +10,7 @@ class AuctionHouseBotHelper extends AbstractData
 {
     const BOT_NAME = 'DSPAH';
     const BOT_ID = 0;
+    const BOT_EXPIRE_KEY = 'bot_expire_days';
 
     const AH_ITEMS_TO_TRY = 100;
     const AH_ITEMS_TO_BUY = 15;
@@ -84,6 +85,47 @@ class AuctionHouseBotHelper extends AbstractData
     const AH_TABLE = 'auction_house';
     const RESTOCK_FROM_TABLE = 'item_basic';
 
+    const SERVER_TABLE = 'server_variables';
+    const TREASURY_KEY = 'treasury_balance';
+    const TREASURY_SETTING = 'server_treasury';
+
+
+    public function buyRandomAhItems() {
+        $treasuryBalance = $this->getTreasuryBalance();
+
+        $alreadyOnAuction = $this->getCurrentAuctionItems();
+        $ids = array_rand($alreadyOnAuction, self::AH_ITEMS_TO_BUY);
+        foreach ($ids as $id) {
+            $itemToBuy = null;
+            $stack = time() % 2;
+            $sql = "SELECT id, seller_name, price FROM " . self::AH_TABLE . " WHERE itemid = ${id} AND sale = 0";
+            if ((bool) $stack && $alreadyOnAuction[$id]['stack'] > 0) {
+                // buy the stack
+                $sql = "${sql} AND stack = 1";
+            }
+            $result = $this->getDb()->query($sql);
+            if ($result) {
+                $items = $result->fetch_all(MYSQLI_ASSOC);
+                foreach ($items as $item) {
+                    if (empty($itemToBuy)) {
+                        $itemToBuy = $item;
+                    }
+                    if ($itemToBuy['seller_name'] !== self::BOT_NAME) {
+                        $itemToBuy = $item;
+                        break;
+                    }
+                }
+                $price = $itemToBuy['price'];
+                if (($treasuryBalance - $price) > 0) {
+                    echo "DEBUG: Buying {$itemToBuy['id']} from {$itemToBuy['seller_name']} for ${price} gil" . PHP_EOL;
+                    $treasuryBalance -= $price;
+                    $this->buyItem($itemToBuy['id'], $price, $itemToBuy['seller_name']);
+                }
+            }
+        }
+        $this->updateTreasuryBalance($treasuryBalance);
+    }
+
     public function cleanUpAhDeliveryBox()
     {
         $table = 'delivery_box';
@@ -101,19 +143,19 @@ class AuctionHouseBotHelper extends AbstractData
             foreach ($ahConfig as $item) {
                 $item = explode(':', trim($item));
                 switch ($item[0]) {
-                    case 'expire_days':
+                    case self::BOT_EXPIRE_KEY:
                         $duration = (int) $item[1];
                         break;
                 }
                 if (isset($duration)) {
-                    continue;
+                    break;
                 }
             }
 
             $duration = $duration * TimeHelper::DAY;
             $expirationDate = time() - $duration;
             $sql = "DELETE FROM auction_house WHERE seller = " .self::BOT_ID .
-                    " AND date < ${expirationDate} AND sale = 0";
+                    " AND date < ${expirationDate} AND sell_date = 0";
 
             if ($result = $this->getDb()->query($sql)) {
                 echo "Debug: {$sql}" . PHP_EOL;
@@ -184,41 +226,43 @@ class AuctionHouseBotHelper extends AbstractData
         }
     }
 
-    public function buyRandomAhItems() {
-        $alreadyOnAuction = $this->getCurrentAuctionItems();
-        $ids = array_rand($alreadyOnAuction, self::AH_ITEMS_TO_BUY);
-        foreach ($ids as $id) {
-            $itemToBuy = null;
-            $stack = time() % 2;
-            $sql = "SELECT id, seller_name, price FROM " . self::AH_TABLE . " WHERE itemid = ${id} AND sale = 0";
-            if ((bool) $stack && $alreadyOnAuction[$id]['stack'] > 0) {
-                // buy the stack
-                $sql = "${sql} AND stack = 1";
-            }
-            $result = $this->getDb()->query($sql);
-            if ($result) {
-                $items = $result->fetch_all(MYSQLI_ASSOC);
-                foreach ($items as $item) {
-                    if (empty($itemToBuy)) {
-                        $itemToBuy = $item;
-                    }
-                    if ($itemToBuy['seller_name'] !== self::BOT_NAME) {
-                        $itemToBuy = $item;
-                        break;
-                    }
-                }
-                echo "DEBUG: Buying {$itemToBuy['id']} from {$itemToBuy['seller_name']} for {$itemToBuy['price']} gil" . PHP_EOL;
-                $this->buyItem($itemToBuy['id'], $itemToBuy['price'], $itemToBuy['seller_name']);
+    private function buyItem ($id, $price, $seller)
+    {
+        $sql = "UPDATE " . self::AH_TABLE . " SET buyer_name = '" . self::BOT_NAME . "', sale = ${price}, sell_date = " . time() . " WHERE id = ${id}";
+        if ($this->getDb()->query($sql)) {
+            if ($seller !== self::BOT_NAME) {
+                $sql = "INSERT INTO delivery_box"; // TODO FINISH THIS FOR REAL USERS TO GET PAID
+            } else {
+                // If the seller is the AHBOT, add the value to the treasury pool
+                $treasuryBalance = $this->getTreasuryBalance() + $price;
+                $this->updateTreasuryBalance($treasuryBalance);
             }
         }
     }
 
-    private function buyItem ($id, $price, $seller)
+    private function getCurrentAuctionItems()
     {
-        $sql = "UPDATE " . self::AH_TABLE . " SET buyer_name = '" . self::BOT_NAME . "', sale = ${price}, sell_date = " . time() . " WHERE id = ${id}";
-        if ($this->getDb()->query($sql) && $seller !== self::BOT_NAME) {
-            $sql = "INSERT INTO delivery_box"; // TODO FINISH THIS FOR REAL USERS TO GET PAID
+        $sql = "SELECT * FROM " . self::AH_TABLE . " WHERE sell_date = 0";
+
+        $result = $this->getDb()->query($sql);
+
+        $ahItems = [];
+        if ($result) {
+            $items = $result->fetch_all(MYSQLI_ASSOC);
+            foreach ($items as $item) {
+                $itemId = (int) $item['itemid'];
+                if (!array_key_exists($itemId, $ahItems)) {
+                    $ahItems[$itemId] = [
+                        'single' => 0,
+                        'stack' => 0
+                    ];
+                }
+                $stack = ((int) $item['stack']) === 1;
+                $key = $stack ? 'stack' : 'single';
+                $ahItems[$itemId][$key]++;
+            }
         }
+        return $ahItems;
     }
 
     private function getLastIdUsedInAH()
@@ -233,6 +277,31 @@ class AuctionHouseBotHelper extends AbstractData
         $result = $this->getDb()->query('SELECT MAX(itemid) FROM ' . self::RESTOCK_FROM_TABLE);
         $lastId = $result->fetch_row();
         return (int) $lastId[0];
+    }
+
+    private function getRandomItems()
+    {
+        $maxId = $this->getMaxItemId();
+
+        $randomIds = [];
+        $i = 0;
+        while ($i < self::AH_ITEMS_TO_TRY) {
+            $random = rand(1, $maxId);
+            if (!in_array($random, $randomIds)) {
+                $randomIds[] = $random;
+                $i++;
+            }
+        }
+        $randomIds = '(' . implode(',', $randomIds) . ')';
+
+        $sql = "SELECT * FROM " . self::RESTOCK_FROM_TABLE . " WHERE aH <> 0 AND itemid IN ${randomIds}";
+
+        $result = $this->getDb()->query($sql);
+
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        return false;
     }
 
     private function getSellPrice($itemId, $baseSell)
@@ -264,6 +333,21 @@ class AuctionHouseBotHelper extends AbstractData
         return $sell;
     }
 
+    private function getTreasuryBalance ()
+    {
+        $sql = 'SELECT value FROM ' . self::SERVER_TABLE . " WHERE name = '" . self::TREASURY_KEY . "'";
+        $result = $this->getDb()->query($sql);
+        if (!$result) {
+            return false;
+        }
+        if (!$balance = $result->fetch_row()) {
+            $this->updateTreasuryBalance(null); // Sets the default balance
+            return $this->getTreasuryBalance();
+        }
+        return (int) $balance[0];
+
+    }
+
     private function isArmor($category)
     {
         return in_array($category, self::ARMOR_CATEGORIES);
@@ -274,53 +358,35 @@ class AuctionHouseBotHelper extends AbstractData
         return in_array($category, self::USEABLE_CATEGORIES);
     }
 
-    private function getCurrentAuctionItems()
+    private function updateTreasuryBalance (int $balance = null)
     {
-        $sql = "SELECT * FROM " . self::AH_TABLE . " WHERE sell_date = 0";
+        if (!$balance) {
+            $config = Config::getInstance();
 
-        $result = $this->getDb()->query($sql);
-
-        $ahItems = [];
-        if ($result) {
-            $items = $result->fetch_all(MYSQLI_ASSOC);
-            foreach ($items as $item) {
-                $itemId = (int) $item['itemid'];
-                if (!array_key_exists($itemId, $ahItems)) {
-                    $ahItems[$itemId] = [
-                        'single' => 0,
-                        'stack' => 0
-                    ];
+            if ($ahConfig = $config->getAuctionHouseConfig()) {
+                foreach ($ahConfig as $item) {
+                    $item = explode(':', trim($item));
+                    switch ($item[0]) {
+                        case self::TREASURY_SETTING:
+                            // Treasury settings is in millions
+                            $balance = (int) $item[1] * 1000000;
+                            break;
+                    }
+                    if (isset($balance)) {
+                        break;
+                    }
                 }
-                $stack = ((int) $item['stack']) === 1;
-                $key = $stack ? 'stack' : 'single';
-                $ahItems[$itemId][$key]++;
+            }
+            if (!$balance) {
+                return false;
             }
         }
-        return $ahItems;
-    }
-
-    private function getRandomItems()
-    {
-        $maxId = $this->getMaxItemId();
-
-        $randomIds = [];
-        $i = 0;
-        while ($i < self::AH_ITEMS_TO_TRY) {
-            $random = rand(1, $maxId);
-            if (!in_array($random, $randomIds)) {
-                $randomIds[] = $random;
-                $i++;
-            }
+        $sql = 'INSERT INTO ' . self::SERVER_TABLE . " (name, value)
+                VALUES ('" . self::TREASURY_KEY . "', ${balance})
+                ON DUPLICATE KEY UPDATE value = ${balance}";
+        if ($result = $this->getDb()->query($sql)) {
+            echo "Debug: {$sql}" . PHP_EOL;
         }
-        $randomIds = '(' . implode(',', $randomIds) . ')';
 
-        $sql = "SELECT * FROM " . self::RESTOCK_FROM_TABLE . " WHERE aH <> 0 AND itemid IN ${randomIds}";
-
-        $result = $this->getDb()->query($sql);
-
-        if ($result) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-        return false;
     }
 }

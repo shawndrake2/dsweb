@@ -2,6 +2,7 @@
 
 namespace DsWeb\Data;
 
+use DsWeb\Helper\AuctionHouseBotHelper;
 use DsWeb\ViewModel\Page\Search\AuctionHouseListingVM;
 
 class AuctionHouseData extends AbstractData
