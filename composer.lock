@@ -4,8 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4da8171086d46f1503f0b085aa204719",
+    "content-hash": "6eb370b75c4f434ffa55b2213c8fdb89",
     "packages": [
+        {
+            "name": "timetoogo/rapid-route",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TimeToogo/RapidRoute.git",
+                "reference": "5ef2c90a1ab5f02565c4a22bc0bf979c98f15292"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TimeToogo/RapidRoute/zipball/5ef2c90a1ab5f02565c4a22bc0bf979c98f15292",
+                "reference": "5ef2c90a1ab5f02565c4a22bc0bf979c98f15292",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6.0",
+                "satooshi/php-coveralls": "0.6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RapidRoute\\": "src/",
+                    "RapidRoute\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elliot Levin",
+                    "email": "elliotlevin@hotmail.com"
+                }
+            ],
+            "description": "Another fast router library for PHP",
+            "homepage": "http://www.github.com/TimeToogo/RapidRoute",
+            "keywords": [
+                "fast",
+                "route",
+                "router"
+            ],
+            "time": "2015-08-09T02:20:26+00:00"
+        },
         {
             "name": "zendframework/zend-eventmanager",
             "version": "3.2.1",
@@ -247,7 +294,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-mysqli": "*"
     },
     "platform-dev": []
 }

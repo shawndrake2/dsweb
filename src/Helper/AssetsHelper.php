@@ -10,6 +10,7 @@ class AssetsHelper
 {
     const REMOTE = 'remote';
     const LOCAL = 'local';
+    const MODULES = 'modules';
 
     private $assets = [];
     private $css;
@@ -27,6 +28,7 @@ class AssetsHelper
         $localCss = $this->getLocalCss();
         $remoteCss = $this->getRemoteCss();
         $localJs = $this->getLocalJs();
+        $modules = $this->getJsModules();
         $remoteJs = $this->getRemoteJs();
 
         $this->assets = array_merge(
@@ -34,6 +36,7 @@ class AssetsHelper
             $this->getCssLinks($localCss, true), // Local
             $this->getCssLinks($remoteCss, false), // Remote
             $this->getJsLinks($remoteJs, false), // Remote
+            $this->getJsLinks($modules, true, 'module'), // Modules (Vue.js)
             $this->getJsLinks($localJs, true) // Local
         );
         return $this->assets;
@@ -63,11 +66,11 @@ class AssetsHelper
         return $this->css[$hosted] ?? [];
     }
 
-    private function getJsLinks(array $links, bool $local = true)
+    private function getJsLinks(array $links, bool $local = true, $type = 'text/javascript')
     {
         $jsLinks = [];
         foreach ($links as $js) {
-            $jsLinks[] = new JsLinkViewModel($js, $local);
+            $jsLinks[] = new JsLinkViewModel($js, $local, $type);
         }
         return $jsLinks;
     }
@@ -75,6 +78,11 @@ class AssetsHelper
     private function getLocalJs () : ?array
     {
         return $this->getJsAssets(self::LOCAL);
+    }
+
+    private function getJsModules () : ?array
+    {
+        return $this->getJsAssets(self::MODULES);
     }
 
     private function getRemoteJs () : ?array

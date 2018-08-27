@@ -1,9 +1,6 @@
 $(function () {
   // Initialize clicks
   events.init()
-
-  // Go to search
-  pages.go('search')
 })
 
 /* test
@@ -64,7 +61,6 @@ var pages =
     list:
       {
         // Core site
-        search: 'search.php',
         searchquery: 'data/view.search.php',
 
         // Content related

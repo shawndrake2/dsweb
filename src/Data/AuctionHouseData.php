@@ -51,17 +51,24 @@ class AuctionHouseData extends AbstractData
         ORDER BY ah.id DESC
         LIMIT '. implode(",", [($this->page-1) * $this->maxPerPage, $this->maxPerPage]);
 
-        $listings = $this->getDb()->query($query);
+        $result = $this->getDb()->query($query);
 
-        $allListings = [];
-        if ($listings->num_rows > 0)
+        while ($record = $result->fetch_assoc()) {
+            $listings[] = $record;
+        }
+        return $listings;
+    }
+
+    /** @deprecated  */
+    public function getListingsVms()
+    {
+        $listings = $this->getListings();
+
+        // List items
+        foreach($listings as $item)
         {
-            // List items
-            foreach($listings as $item)
-            {
-                $listingVM = new AuctionHouseListingVM($item);
-                $allListings[] = $listingVM;
-            }
+            $listingVM = new AuctionHouseListingVM($item);
+            $allListings[] = $listingVM;
         }
         return $allListings;
     }
