@@ -5,6 +5,9 @@
         <title>
             <?= $this->siteName; ?>
         </title>
+        <script>
+            <?= "window.serverConfig = {$this->serverConfig}"; ?>
+        </script>
         <?php
         foreach ($this->assets as $asset) {
             echo $asset;
@@ -20,12 +23,13 @@
         </div>
         <!-- TESTING -->
 
-        <div class="container">
-            <?= $this->nav; ?>
+        <div class="container" id="vueApp">
             <div id="app">
 
             </div>
-            <section id="ajax"></section>
+            <div id="ajax">
+
+            </div>
         </div>
         <?= $this->footer; ?>
     </body>

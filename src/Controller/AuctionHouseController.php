@@ -15,11 +15,6 @@ class AuctionHouseController
 
     private function outputData(array $data)
     {
-        $output = [
-            'status' => 200,
-            'data' => $data
-        ];
-
-        echo json_encode($output);
+        echo json_encode($data);
     }
 }

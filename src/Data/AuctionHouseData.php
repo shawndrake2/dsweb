@@ -2,9 +2,6 @@
 
 namespace DsWeb\Data;
 
-use DsWeb\Helper\AuctionHouseBotHelper;
-use DsWeb\ViewModel\Page\Search\AuctionHouseListingVM;
-
 class AuctionHouseData extends AbstractData
 {
     private $filters;
@@ -57,19 +54,5 @@ class AuctionHouseData extends AbstractData
             $listings[] = $record;
         }
         return $listings;
-    }
-
-    /** @deprecated  */
-    public function getListingsVms()
-    {
-        $listings = $this->getListings();
-
-        // List items
-        foreach($listings as $item)
-        {
-            $listingVM = new AuctionHouseListingVM($item);
-            $allListings[] = $listingVM;
-        }
-        return $allListings;
     }
 }

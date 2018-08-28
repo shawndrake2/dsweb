@@ -2,6 +2,7 @@
 
 namespace DsWeb\Helper;
 
+/** @deprecated  */
 class TimeHelper
 {
     const MINUTE = 60;

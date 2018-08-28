@@ -17,6 +17,7 @@
     ],
     "remote": [
       "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
+      "https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js",
       "//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js",
       "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
     ]

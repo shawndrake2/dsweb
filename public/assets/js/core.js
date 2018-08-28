@@ -65,7 +65,6 @@ var pages =
 
         // Content related
         character: 'character.php',
-        ah: 'ah.php',
         server: 'server.php'
       },
 
@@ -84,7 +83,7 @@ var pages =
           })
       }
       else {
-        pages.success('<div class="error" style="margin:30px;">The page "' + page + '" does not exist</div>')
+        // pages.success('<div class="error" style="margin:30px;">The page "' + page + '" does not exist</div>')
       }
     },
 
