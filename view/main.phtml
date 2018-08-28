@@ -6,7 +6,7 @@
             <?= $this->siteName; ?>
         </title>
         <script>
-            <?= "window.serverConfig = {$this->serverConfig}"; ?>
+            <?= "window.siteName = '{$this->siteName}'"; ?>
         </script>
         <?php
         foreach ($this->assets as $asset) {
@@ -15,21 +15,8 @@
         ?>
     </head>
     <body>
-        <?= $this->header; ?>
+        <div id="app">
 
-        <!-- TESTING -->
-        <div style="margin:20px 0;">
-            <input type="button" value="Load character" onclick="test.editCharacter()" />
-        </div>
-        <!-- TESTING -->
-
-        <div class="container">
-            <div id="app">
-
-            </div>
-            <div id="ajax">
-
-            </div>
         </div>
     </body>
 </html>
