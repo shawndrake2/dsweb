@@ -8,7 +8,7 @@ export default {
   },
   template: `
     <div class="page">
-      <h2>Search</h2>
+      <h3>Search</h3>
       <div class="form">
         <table cellspacing="0" cellpadding="0" border="0">
           <tr>

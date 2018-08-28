@@ -37,10 +37,6 @@ var events =
             }
         })
 
-      // Navigation Button
-      $('nav .btn').unbind('click')
-      $('nav .btn').click(function () { nav.handle($(this)) })
-
       // Search input
       $('#searchquery').unbind('keyup')
       $('#searchquery').keyup(function () { search.handle($(this)) })
@@ -48,8 +44,6 @@ var events =
       // Search option
       $('.search-option').unbind('click')
       $('.search-option').click(function () { search.edit($(this)) })
-
-      //console.log("events initialized");
     },
   }
 
@@ -64,8 +58,7 @@ var pages =
         searchquery: 'data/view.search.php',
 
         // Content related
-        character: 'character.php',
-        server: 'server.php'
+        character: 'character.php'
       },
 
     go: function (page, data) {
@@ -81,9 +74,6 @@ var pages =
             success: pages.success,
             error: pages.error,
           })
-      }
-      else {
-        // pages.success('<div class="error" style="margin:30px;">The page "' + page + '" does not exist</div>')
       }
     },
 
@@ -209,12 +199,6 @@ var nav =
     handle: function (element) {
       // Get the page
       var page = element.data('page')
-
-      // Remove active button
-      $('nav .active').removeClass('active')
-
-      // Add active class to this button
-      element.addClass('active')
 
       // Ajax in file
       pages.go(page)

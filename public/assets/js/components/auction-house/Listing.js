@@ -1,7 +1,7 @@
 export default {
   name: 'Listing',
   props: {
-    listing: Array
+    listing: Object
   },
   data () {
     return {

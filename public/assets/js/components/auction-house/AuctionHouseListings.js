@@ -29,19 +29,19 @@ export default {
         <div v-if="listings.length > 0">
           <table class="generic-table" cellspacing="0" border="0" cellpadding="10">
               <tr class="generic-table-header">
-                  <td width="2%" align="center" style="color:#888;">#</td>
-                  <td width="2%" align="center">Icon</td>
-                  <td width="25%">Item</td>
-                  <td width="2%" align="center">Stack</td>
-                  <td width="10%" align="right">Price</td>
-                  <td width="15%">List Date</td>
-                  <td width="10%" align="right">Sale</td>
-                  <td width="15%">Sale Date</td>
-                  <td width="10%">Profit</td>
-                  <td width="15%">Character</td>
-                  <td width="15%" align="center" style="color:#A74436;">Actions</td>
+                  <th width="2%" align="center" style="color:#888;">#</th>
+                  <th width="2%" align="center">Icon</th>
+                  <th width="25%">Item</th>
+                  <th width="2%" align="center">Stack</th>
+                  <th width="10%" align="right">Price</th>
+                  <th width="15%">List Date</th>
+                  <th width="10%" align="right">Sale</th>
+                  <th width="15%">Sale Date</th>
+                  <th width="10%">Profit</th>
+                  <th width="15%">Character</th>
+                  <th width="15%" align="center" style="color:#A74436;">Actions</th>
               </tr>
-              <app-listing v-for="listing in listings" :listing="listing"></app-listing>
+              <app-listing v-for="(listing, index) in listings" :listing="listing" :key="'listing' + index"></app-listing>
           </table>
         </div>  
         <div class="error" v-if="listings.length === 0">

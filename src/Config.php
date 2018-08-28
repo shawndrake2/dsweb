@@ -102,7 +102,17 @@ class Config
     public function getServerConfig()
     {
         if ($this->serverConfigPresent()) {
-            return file($this->getServerConfigPath());
+            $config = [];
+            $origConfig = file($this->getServerConfigPath());
+            foreach ($origConfig as $index => $line) {
+                $line = trim($line);
+                if (preg_match('/^#/', $line) !== 1 && !empty($line)) {
+                    $line = explode(':', $line, 2);
+                    list($setting, $value) = $line;
+                    $config[trim($setting)] = trim($value);
+                }
+            }
+            return $config;
         }
         return false;
     }

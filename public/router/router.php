@@ -14,18 +14,34 @@ return function ($method, $uri) {
     switch (count($segments)) {
         case 2:
             list($s0, $s1) = $segments;
-            if ($s0 === 'data' && $s1 === 'auction-house') {
-                switch ($method) {
-                    case 'GET':
-                    case 'HEAD':
-                        return [2, ['handler' => [
-                            0 => 'DsWeb\\Controller\\AuctionHouseController',
-                            1 => 'getListings',
-                        ]], []];
-                    default:
-                        $allowedHttpMethods[] = 'GET';
-                        $allowedHttpMethods[] = 'HEAD';
-                        break;
+            if ($s0 === 'data') {
+                if ($s1 === 'auction-house') {
+                    switch ($method) {
+                        case 'GET':
+                        case 'HEAD':
+                            return [2, ['handler' => [
+                                0 => 'DsWeb\\Controller\\AuctionHouseController',
+                                1 => 'getListings',
+                            ]], []];
+                        default:
+                            $allowedHttpMethods[] = 'GET';
+                            $allowedHttpMethods[] = 'HEAD';
+                            break;
+                    }
+                }
+                if ($s1 === 'server') {
+                    switch ($method) {
+                        case 'GET':
+                        case 'HEAD':
+                            return [2, ['handler' => [
+                                0 => 'DsWeb\\Controller\\ServerController',
+                                1 => 'getServerConfig',
+                            ]], []];
+                        default:
+                            $allowedHttpMethods[] = 'GET';
+                            $allowedHttpMethods[] = 'HEAD';
+                            break;
+                    }
                 }
             }
             return isset($allowedHttpMethods) ? [1, $allowedHttpMethods] : [0];

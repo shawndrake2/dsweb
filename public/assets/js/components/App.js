@@ -2,24 +2,45 @@ import AuctionHouseListings from './auction-house/AuctionHouseListings.js'
 import Search from './search/Search.js'
 import ServerDetails from './server/ServerDetails.js'
 
-// Defined at PHP level for simplicity
-const serverConfig = window.serverConfig;
-
 export default {
   name: 'App',
   data: () => {
     return {
-      serverConfig: serverConfig,
-      currentComponent: 'Search',
-      components: ['Search', 'AuctionHouse', 'ServerDetails']
+      defaultComponent: 'Search',
+      currentComponent: null,
+      components: ['Search', 'Auction House', 'Server Details']
     }
   },
   computed: {
+    activeComponent: function () {
+      return this.getCurrentComponent()
+    }
+  },
+  methods: {
     getCurrentComponent: function () {
+      let component = null
       if (this.currentComponent) {
-        return 'app-' + this.currentComponent.toLowerCase()
+        component = this.currentComponent
+      } else {
+        component = localStorage.getItem('currentComponent')
+
+        if (!component) {
+          component = this.defaultComponent
+        }
+        this.setCurrentComponent(component)
       }
-      return ''
+      return this.getRegisteredComponentName(component)
+    },
+    getRegisteredComponentName (name) {
+      return `app-${name.replace(' ', '').toLowerCase()}`
+    },
+    getActiveClass: function (tab) {
+      return this.getRegisteredComponentName(tab) === this.getCurrentComponent() ?
+        'active' : ''
+    },
+    setCurrentComponent (component) {
+      this.currentComponent = component
+      localStorage.setItem('currentComponent', component)
     }
   },
   components: {
@@ -29,10 +50,11 @@ export default {
   },
   template: `<div>
       <nav>
-          <span class="btn active" v-on:click="currentComponent = 'Search'">Search</span>
-          <span class="btn" v-on:click="currentComponent = 'AuctionHouse'">Auction House</span>
-          <span class="btn" v-on:click="currentComponent = 'ServerDetails'" v-if="serverConfig">Server</span>
+          <span v-for="component in components" 
+                :id="'nav-' + component" 
+                :class="'btn ' + getActiveClass(component)" 
+                v-on:click="setCurrentComponent(component)">{{ component }}</span>
       </nav>
-      <component :is="getCurrentComponent"></component>
+      <component :is="activeComponent"></component>
     </div>`
 }
