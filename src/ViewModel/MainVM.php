@@ -4,7 +4,6 @@ namespace DsWeb\ViewModel;
 
 use DsWeb\Config;
 use DsWeb\Helper\AssetsHelper;
-use DsWeb\ViewModel\Page\Component\FooterVM;
 use DsWeb\ViewModel\Page\Component\HeaderVM;
 
 class MainVM extends AbstractVM
@@ -13,7 +12,6 @@ class MainVM extends AbstractVM
     {
         $this->siteName = $siteName;
         $this->header = new HeaderVM($siteName);
-        $this->footer = new FooterVM();
 
         $assetsHelper = new AssetsHelper(Config::getInstance());
         $this->assets = $assetsHelper->getAllAssets();

@@ -1,4 +1,5 @@
 import AuctionHouseListings from './auction-house/AuctionHouseListings.js'
+import Footer from './Footer.js'
 import Search from './search/Search.js'
 import ServerDetails from './server/ServerDetails.js'
 
@@ -45,6 +46,7 @@ export default {
   },
   components: {
     'app-auctionhouse': AuctionHouseListings,
+    'app-footer': Footer,
     'app-search': Search,
     'app-serverdetails': ServerDetails
   },
@@ -56,5 +58,6 @@ export default {
                 v-on:click="setCurrentComponent(component)">{{ component }}</span>
       </nav>
       <component :is="activeComponent"></component>
+      <app-footer></app-footer>
     </div>`
 }
