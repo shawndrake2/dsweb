@@ -11,6 +11,7 @@ namespace DsWeb\Helper;
 //use MPM\Controller\AuthController;
 //use MPM\Controller\ProjectsController;
 use DsWeb\Controller\AuctionHouseController;
+use DsWeb\Controller\SearchController;
 use DsWeb\Controller\ServerController;
 use RapidRoute\RouteCollection;
 use RapidRoute\Router;
@@ -37,6 +38,11 @@ class RouteHelper
                 $routes->get(
                     '/data/auction-house',
                     ['handler' => [AuctionHouseController::class, 'getListings']]
+                );
+
+                $routes->get(
+                    '/data/search',
+                    ['handler' => [SearchController::class, 'getSearchResults']]
                 );
 
                 $routes->get(

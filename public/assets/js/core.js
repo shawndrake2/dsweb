@@ -37,10 +37,6 @@ var events =
             }
         })
 
-      // Search input
-      $('#searchquery').unbind('keyup')
-      $('#searchquery').keyup(function () { search.handle($(this)) })
-
       // Search option
       $('.search-option').unbind('click')
       $('.search-option').click(function () { search.edit($(this)) })
@@ -54,9 +50,6 @@ var pages =
   {
     list:
       {
-        // Core site
-        searchquery: 'data/view.search.php',
-
         // Content related
         character: 'character.php'
       },
@@ -93,93 +86,6 @@ var pages =
     }
   }
 
-/* search
- * - handles a bunch of search stuff
- */
-var search =
-  {
-    CharacterLimit: 3,
-    SearchDelay: 500,
-    SearchInstance: null,
-    SearchActive: false,
-    SearchTableSimplified:
-      {
-        'accounts': 'account',
-        'chars': 'character',
-
-        'abilities': 'content',
-        'item_armor': 'content',
-        'item_basic': 'content',
-        'item_weapon': 'content',
-      },
-
-    handle: function (element) {
-      // Get search query
-      var query = element.val().trim()
-
-      // Make sure above character limit
-      if (query.length >= search.CharacterLimit) {
-        // We don't want to spam the search, so we will setup an delay that will reset on keyup
-        clearInterval(search.SearchInstance)
-
-        // Setup delay
-        search.SearchInstance = setTimeout(function () {
-            // Set search active, reduce spam
-            search.SearchActive = true
-
-            // Search
-            var File =
-              ajax.go(
-                {
-                  url: pages.list.searchquery,
-                  data: {query: query},
-                  success: search.success,
-                  error: search.error
-                })
-          },
-          search.SearchDelay)
-      }
-      else {
-        // Clear any running intervals
-        clearInterval(search.SearchInstance)
-        search.SearchInstance = null
-      }
-    },
-
-    success: function (data) {
-      // Search no longer active
-      search.SearchActive = false
-
-      // Show results
-      $('#searchresults').html(data)
-
-      // Restore events
-      events.init()
-    },
-
-    error: function (data, status, thrown) {
-      // Search no longer active
-      search.SearchActive = false
-    },
-
-    edit: function (row) {
-      // Get data
-      var data = row.data('edit').split(',')
-
-      // Get simplified file type
-      var dataobj =
-        {
-          uid: data[1],
-          table: data[0],
-          type: search.SearchTableSimplified[data[0]],
-          action: 'edit',
-        }
-
-      // Go to edit screen
-      window[dataobj.type].go(dataobj)
-    }
-  }
-
 /* character
  * - handles character stuff
  */
@@ -188,20 +94,6 @@ var character =
     go: function (dataobj) {
       // Load in
       pages.go(dataobj.type, dataobj)
-    }
-  }
-
-/* nav
- * - handles navigation
- */
-var nav =
-  {
-    handle: function (element) {
-      // Get the page
-      var page = element.data('page')
-
-      // Ajax in file
-      pages.go(page)
     }
   }
 

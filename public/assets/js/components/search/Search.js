@@ -1,9 +1,32 @@
+import SearchResultsCategory from './SearchResultsCategory.js'
+
 export default {
   name: 'Search',
+  components: {
+    'app-results-category': SearchResultsCategory
+  },
   data: () => {
     return {
-      description: '',
-      placeholder: 'Type in a character name, skill, zone, mob. Search also accepts the same filters as ingame.'
+      minSearchLength: 3,
+      placeholder: 'Type in a character name, skill, zone, mob. Search also accepts the same filters as ingame.',
+      query: '',
+      searchResults: {}
+    }
+  },
+  methods: {
+    search () {
+      if (this.query.length >= this.minSearchLength) {
+        fetch(`http://dsweb.local/data/search?query=${this.query}`)
+          .then(response => {
+            return response.json()
+          })
+          .then(json => {
+            this.searchResults = json
+          })
+          .catch(e => {
+            console.log(e)
+          })
+      }
     }
   },
   template: `
@@ -16,7 +39,9 @@ export default {
               <input type="searchquery"
                      id="searchquery"
                      style="width:100%;"
-                     :placeholder="placeholder">
+                     :placeholder="placeholder"
+                     v-on:keyup="search"
+                     v-model="query">
             </td>
             <td width="2%">
               <input type="button" value="Search" />
@@ -26,7 +51,9 @@ export default {
       </div>
       <div style="height:30px;"></div>
       <div id="searchresults">
-        {{ description }}
+        <div v-for="(results, category) in searchResults">
+            <app-results-category :categoryName="category" :searchResults="results"></app-results-category>
+        </div>
       </div>
     </div>
     `

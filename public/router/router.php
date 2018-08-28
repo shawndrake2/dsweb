@@ -29,6 +29,20 @@ return function ($method, $uri) {
                             break;
                     }
                 }
+                if ($s1 === 'search') {
+                    switch ($method) {
+                        case 'GET':
+                        case 'HEAD':
+                            return [2, ['handler' => [
+                                0 => 'DsWeb\\Controller\\SearchController',
+                                1 => 'getSearchResults',
+                            ]], []];
+                        default:
+                            $allowedHttpMethods[] = 'GET';
+                            $allowedHttpMethods[] = 'HEAD';
+                            break;
+                    }
+                }
                 if ($s1 === 'server') {
                     switch ($method) {
                         case 'GET':

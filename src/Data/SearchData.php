@@ -2,9 +2,6 @@
 
 namespace DsWeb\Data;
 
-use DsWeb\ViewModel\Common\ErrorMessageVM;
-use DsWeb\ViewModel\Page\Search\SearchResultsCategoryVM;
-
 class SearchData extends AbstractData
 {
     const TABLE_DATA =             [
@@ -59,12 +56,14 @@ class SearchData extends AbstractData
 
     ];
 
-    public function getSearchResults (string $searchString, $filters = [])
+    public function getSearchResults (string $searchString, $filters = [], $view = true)
     {
         // Results array
         $results = false;
         $searchResultsStart = 0;
         $searchResultsMax = 30;
+
+        $response = [];
 
         $categories = $filters['categories'] ?? array_keys(self::TABLE_DATA);
 
@@ -95,18 +94,11 @@ class SearchData extends AbstractData
                     $results = true;
                     $resultData = $result->fetch_all(MYSQLI_ASSOC);
                     // query
-                    $searchResultsCategoryVM = new SearchResultsCategoryVM($table, $resultData);
-                    echo $searchResultsCategoryVM;
+                    $response[$table] = $resultData;
                 }
             }
         }
 
-        // Loop through results
-        if (!$results) {
-            // No results found in any of the tables.
-            $errorMessage = new ErrorMessageVM("There were no results for: ${searchString}");
-            echo $errorMessage;
-        }
-//        return $results;
+        return $response;
     }
 }
