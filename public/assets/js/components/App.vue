@@ -19,6 +19,7 @@ import AuctionHouseListings from './auction-house/AuctionHouseListings.vue'
 import Character from './character/Character.vue'
 import Footer from './Footer.vue'
 import Header from './Header.vue'
+import NotoriousMonsters from './mobs/NotoriousMonsters.vue'
 import Search from './search/Search.vue'
 import ServerDetails from './server/ServerDetails.vue'
 
@@ -31,7 +32,7 @@ export default {
       siteName: siteName,
       defaultComponent: 'Search',
       currentComponent: null,
-      components: ['Search', 'Auction House', 'Character', 'Server Details']
+      components: ['Search', 'Auction House', 'Character', 'Server Details', 'Notorious Monsters']
     }
   },
   computed: {
@@ -71,6 +72,7 @@ export default {
     'app-character': Character,
     'app-footer': Footer,
     'app-header': Header,
+    'app-notoriousmonsters': NotoriousMonsters,
     'app-search': Search,
     'app-serverdetails': ServerDetails
   }
