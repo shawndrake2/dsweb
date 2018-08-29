@@ -10,7 +10,7 @@
             {{ getItemName(listing) }}
         </td>
         <td align="center" class="generic-table-symbol" style="color:#aaa;">
-            <span v-html="getStackCode(listing)"></span>
+            <font-awesome-icon :icon="getStackCode(listing)" />
         </td>
         <td align="right">
             {{ getAhPrice(listing) }}
@@ -89,7 +89,7 @@ export default {
         '-'
     },
     getStackCode (listing) {
-      return listing['ah_stack'] === 0 ? '&#215;' : '&#10003;'
+      return parseInt(listing['ah_stack']) === 0 ? 'times' : 'check'
     }
   }
 }

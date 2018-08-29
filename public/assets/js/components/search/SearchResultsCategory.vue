@@ -13,10 +13,7 @@
                         {{ value }}
                     </td>
                     <td v-for="button in buttons" width="50px" align="right">
-                        <img src="assets/images/edit26.png"
-                             class="search-option"
-                             title="edit this entry"
-                             :data-edit="button" />
+                        <font-awesome-icon icon="edit" />
                     </td>
                     <td v-if="!hasButtons" width="50px" align="right" style="color:#bbb;">n/a</td>
                 </tr>

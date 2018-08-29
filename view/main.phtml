@@ -6,7 +6,7 @@
             <?= $this->siteName; ?>
         </title>
         <script>
-            <?= "window.siteName = '{$this->siteName}'"; ?>
+            window.siteName = '<?= $this->siteName; ?>'
         </script>
         <script type="module" src="assets/js/dist/main.bundle.js"></script>
     </head>
