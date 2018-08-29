@@ -8,6 +8,10 @@ use DsWeb\Data\Mapping\AHMapping;
 
 class AuctionHouseBotHelper extends AbstractData
 {
+    const MINUTE = 60;
+    const HOUR = 60 * self::MINUTE;
+    const DAY = 24 * self::HOUR;
+
     const BOT_NAME = 'DSPAH';
     const BOT_ID = 0;
     const BOT_EXPIRE_KEY = 'bot_expire_days';
@@ -154,7 +158,7 @@ class AuctionHouseBotHelper extends AbstractData
                 }
             }
 
-            $duration = $duration * TimeHelper::DAY;
+            $duration = $duration * self::DAY;
             $expirationDate = time() - $duration;
             $sql = "DELETE FROM auction_house WHERE seller = " .self::BOT_ID .
                     " AND date < ${expirationDate} AND sell_date = 0";

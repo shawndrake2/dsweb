@@ -4,22 +4,16 @@
       "assets/css/styles.css",
       "assets/css/styles_compressed.css"
     ],
-    "remote": [
-      "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
-    ]
+    "remote": []
   },
   "js": {
-    "local": [
-      "assets/js/core.js"
-    ],
+    "local": [],
     "modules": [
       "assets/js/main.js"
     ],
     "remote": [
       "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
-      "https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js",
-      "//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js",
-      "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+      "https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"
     ]
   }
 }

@@ -1,14 +1,11 @@
+import TimeHelper from '../../helper/TimeHelper.js'
+
+const timeHelper = new TimeHelper()
+
 export default {
   name: 'Listing',
   props: {
     listing: Object
-  },
-  data () {
-    return {
-      minute: 60,
-      hour: this.minute * 60,
-      day: this.hour * 24
-    }
   },
   methods: {
     getAction (listing) {
@@ -18,31 +15,6 @@ export default {
     },
     getAhPrice (listing) {
       return Number.parseFloat(listing['ah_price'])
-    },
-    getAuctionTimeAsString(listingDate) {
-      const now = moment()
-      listingDate = moment.unix(listingDate)
-      const diff = now.subtract(listingDate.seconds())
-
-      if (diff.seconds() === 0) {
-        // Instant
-        return '<span style="font-weight:bold;">a few ms ago</span>'
-      } else if (diff < this.minute) {
-        // Few seconds ago
-        return `<span style='font-weight:bold;'>${diff} secs</span>`
-      } else if (diff < this.hour) {
-        // Few minutes ago
-        const minutes = Math.round(diff / this.minute)
-        return `<span style='font-weight:bold;'>${minutes} mins</span>`
-      } else if (diff < this.day) {
-        // Few hours ago
-        const hours = Math.floor(diff / this.hour)
-        const seconds = diff % this.hour
-        const minutes = Math.round(seconds / this.minute)
-        return `${hours} hrs, ${minutes} mins`
-      } else {
-        return listingDate.format('MMMM Do YYYY, h:mm:ss a')
-      }
     },
     getCharacterName (listing) {
       return listing['character_name'] ? listing['character_name'] : 'AHBOT'
@@ -60,7 +32,7 @@ export default {
       return listing['item_name'].replace(/_/g, ' ')
     },
     getListTime(listing) {
-      return this.getAuctionTimeAsString(listing['ah_date'])
+      return timeHelper.getAuctionTimeAsString(listing['ah_date'])
     },
     getProfit (listing) {
       return this.getSoldTime(listing) !== '-' ?
@@ -69,7 +41,7 @@ export default {
     },
     getSoldTime(listing) {
       return listing['ah_saledate'] > 0 ?
-        this.getAuctionTimeAsString(listing['ah_saledate']) :
+        timeHelper.getAuctionTimeAsString(listing['ah_saledate']) :
         '-'
     },
     getSoldPrice (listing) {

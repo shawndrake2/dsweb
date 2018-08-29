@@ -61,6 +61,25 @@ return function ($method, $uri) {
             return isset($allowedHttpMethods) ? [1, $allowedHttpMethods] : [0];
             break;
         
+        case 3:
+            list($s0, $s1, $s2) = $segments;
+            if ($s2 !== '' && $s0 === 'data' && $s1 === 'character') {
+                switch ($method) {
+                    case 'GET':
+                    case 'HEAD':
+                        return [2, ['handler' => [
+                            0 => 'DsWeb\\Controller\\CharacterController',
+                            1 => 'getCharacterInfo',
+                        ]], ['id' => $s2]];
+                    default:
+                        $allowedHttpMethods[] = 'GET';
+                        $allowedHttpMethods[] = 'HEAD';
+                        break;
+                }
+            }
+            return isset($allowedHttpMethods) ? [1, $allowedHttpMethods] : [0];
+            break;
+        
         default:
             return [0];
     }

@@ -60,3 +60,5 @@ p { margin: 0 0 15px 0; }
 
 /* Tooltips */
 .ui-tooltip { background: black; padding: 6px 10px; color: #fff; border-radius: 2px; font: bold 12px "Helvetica Neue", Sans-Serif; border:none; box-shadow: none; }
+
+.edit-label { color: #888; font-size: 11px; display: block; margin: 0 0 8px 0; }

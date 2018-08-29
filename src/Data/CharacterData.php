@@ -2,8 +2,7 @@
 
 namespace DsWeb\Data;
 
-use DsWeb\Entity\Character;
-use DsWeb\Entity\Inventory;
+use DsWeb\Data\Mapping\InventoryMapping;
 
 class CharacterData extends AbstractData
 {
@@ -103,17 +102,14 @@ class CharacterData extends AbstractData
 
             // Final check, if all ok, MAKE DA OBJECTTTTTTTTTTT
             if (!empty($character['main']['id'])) {
-                // Found, set, GO
-                $characterEntity = new Character($character);
+
                 // Get inventory now
                 $inventory = $this->getCharacterInventory($id);
-                $characterEntity->setInventory($inventory);
-
-                return $characterEntity;
+                $character = array_merge($character, $inventory);
             }
 
             // Found but was borked?!
-            return false;
+            return $character;
         }
 
         // Not found
@@ -177,9 +173,12 @@ class CharacterData extends AbstractData
             }
         }
 
-        $inventory = new Inventory();
         foreach ($inventoryResults as $item) {
-            $inventory->setInventoryItem($item);
+            if ($item['itemId'] === InventoryMapping::GIL_ID) {
+                $inventory['gil'] = $item['quantity'];
+            } else {
+                $inventory['inventory'][$item['itemId']] = $item['quantity'];
+            }
         }
 
         return $inventory;

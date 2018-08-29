@@ -1,4 +1,5 @@
 import AuctionHouseListings from './auction-house/AuctionHouseListings.js'
+import Character from './character/Character.js'
 import Footer from './Footer.js'
 import Header from './Header.js'
 import Search from './search/Search.js'
@@ -13,7 +14,7 @@ export default {
       siteName: siteName,
       defaultComponent: 'Search',
       currentComponent: null,
-      components: ['Search', 'Auction House', 'Server Details']
+      components: ['Search', 'Auction House', 'Character', 'Server Details']
     }
   },
   computed: {
@@ -50,6 +51,7 @@ export default {
   },
   components: {
     'app-auctionhouse': AuctionHouseListings,
+    'app-character': Character,
     'app-footer': Footer,
     'app-header': Header,
     'app-search': Search,
@@ -58,12 +60,6 @@ export default {
   template: `
     <div>
       <app-header :siteName="siteName"></app-header>
-
-      <!-- TESTING -->
-      <div style="margin:20px 0;">
-          <input type="button" value="Load character" onclick="test.editCharacter()" />
-      </div>
-      <!-- TESTING -->
 
       <div class="container">
   
