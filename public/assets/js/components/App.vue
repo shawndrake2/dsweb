@@ -1,26 +1,16 @@
 <template>
   <div>
     <app-header :siteName="siteName"></app-header>
-
     <div class="container">
-
       <nav>
             <span v-for="component in components"
                   :id="'nav-' + component"
                   :class="'btn ' + getActiveClass(component)"
                   v-on:click="setCurrentComponent(component)">{{ component }}</span>
       </nav>
-
       <component :is="activeComponent"></component>
-
-      <div id="ajax">
-
-      </div>
-
     </div>
-
     <app-footer></app-footer>
-
   </div>
 </template>
 
