@@ -1,3 +1,42 @@
+<template>
+    <tr :style="getCss(listing)">
+        <td align="center" style="color: #aaa; font-size: 14px;">
+            {{ getId(listing) }}
+        </td>
+        <td>
+            <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
+        </td>
+        <td>
+            {{ getItemName(listing) }}
+        </td>
+        <td align="center" class="generic-table-symbol" style="color:#aaa;">
+            <span v-html="getStackCode(listing)"></span>
+        </td>
+        <td align="right">
+            {{ getAhPrice(listing) }}
+        </td>
+        <td>
+            {{ getListTime(listing) }}
+        </td>
+        <td align="right">
+            {{ getSoldPrice(listing) }}
+        </td>
+        <td>
+            {{ getSoldTime(listing) }}
+        </td>
+        <td>
+            {{ getProfit(listing) }}
+        </td>
+        <td>
+            {{ getCharacterName(listing) }}
+        </td>
+        <td align="center" class="form" style="padding: 0;">
+            <span v-html="getAction(listing)"></span>
+        </td>
+    </tr>
+</template>
+
+<script>
 import TimeHelper from '../../helper/TimeHelper.js'
 
 const timeHelper = new TimeHelper()
@@ -52,42 +91,10 @@ export default {
     getStackCode (listing) {
       return listing['ah_stack'] === 0 ? '&#215;' : '&#10003;'
     }
-  },
-  template: `
-      <tr :style="getCss(listing)">
-          <td align="center" style="color: #aaa; font-size: 14px;">
-              {{ getId(listing) }}
-          </td>
-          <td>
-              <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
-          </td>
-          <td>
-              {{ getItemName(listing) }}
-          </td>
-          <td align="center" class="generic-table-symbol" style="color:#aaa;">
-              <span v-html="getStackCode(listing)"></span>
-          </td>
-          <td align="right">
-              {{ getAhPrice(listing) }}
-          </td>
-          <td>
-              {{ getListTime(listing) }}
-          </td>
-          <td align="right">
-              {{ getSoldPrice(listing) }}
-          </td>
-          <td>
-              {{ getSoldTime(listing) }}
-          </td>
-          <td>
-              {{ getProfit(listing) }}
-          </td>
-          <td>
-              {{ getCharacterName(listing) }}
-          </td>
-          <td align="center" class="form" style="padding: 0;">
-              <span v-html="getAction(listing)"></span>
-          </td>
-      </tr>
-    `
+  }
 }
+</script>
+
+<style>
+
+</style>

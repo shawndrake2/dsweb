@@ -4,11 +4,12 @@ dsweb
 A web server management and web portal for the DarkStar Private FFXI servers.
 
 **State**
-Just started, not much to it atm XD
+Refactored to use PHP backend with Vue.js frontend
 
 **Requirements**
 - A LAMP stack of sorts, or nginx
 - PHP 7.2 (Untested on previous versions of 7.*)
+- Latest version of Node & NPM or Yarn
 
 **Screenshots**
 - Multi-Search: http://i.imgur.com/objeTIM.png

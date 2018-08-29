@@ -9,9 +9,13 @@
     "build": "webpack --config build/webpack.config.js"
   },
   "devDependencies": {
+    "css-loader": "^1.0.0",
     "moment": "^2.22.2",
     "path": "^0.12.7",
+    "style-loader": "^0.23.0",
     "vue": "^2.5.17",
+    "vue-loader": "^14.2.2",
+    "vue-template-compiler": "^2.5.17",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0"
   }

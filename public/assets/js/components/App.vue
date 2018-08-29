@@ -1,9 +1,36 @@
-import AuctionHouseListings from './auction-house/AuctionHouseListings.js'
-import Character from './character/Character.js'
-import Footer from './Footer.js'
-import Header from './Header.js'
-import Search from './search/Search.js'
-import ServerDetails from './server/ServerDetails.js'
+<template>
+  <div>
+    <app-header :siteName="siteName"></app-header>
+
+    <div class="container">
+
+      <nav>
+            <span v-for="component in components"
+                  :id="'nav-' + component"
+                  :class="'btn ' + getActiveClass(component)"
+                  v-on:click="setCurrentComponent(component)">{{ component }}</span>
+      </nav>
+
+      <component :is="activeComponent"></component>
+
+      <div id="ajax">
+
+      </div>
+
+    </div>
+
+    <app-footer></app-footer>
+
+  </div>
+</template>
+
+<script>
+import AuctionHouseListings from './auction-house/AuctionHouseListings.vue'
+import Character from './character/Character.vue'
+import Footer from './Footer.vue'
+import Header from './Header.vue'
+import Search from './search/Search.vue'
+import ServerDetails from './server/ServerDetails.vue'
 
 const siteName = window.siteName;
 
@@ -56,30 +83,10 @@ export default {
     'app-header': Header,
     'app-search': Search,
     'app-serverdetails': ServerDetails
-  },
-  template: `
-    <div>
-      <app-header :siteName="siteName"></app-header>
-
-      <div class="container">
-  
-        <nav>
-            <span v-for="component in components" 
-                  :id="'nav-' + component" 
-                  :class="'btn ' + getActiveClass(component)" 
-                  v-on:click="setCurrentComponent(component)">{{ component }}</span>
-        </nav>
-  
-        <component :is="activeComponent"></component>
-
-        <div id="ajax">
-
-        </div>
-  
-      </div>
-
-      <app-footer></app-footer>
-  
-    </div>
-`
+  }
 }
+</script>
+
+<style>
+
+</style>

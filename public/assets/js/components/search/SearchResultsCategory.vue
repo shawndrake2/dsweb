@@ -1,3 +1,31 @@
+<template>
+    <div class="search-category">
+        <span style="color:#0057C1;">
+            <h4>{{ categoryName }} <strong>( {{ resultsCount }} )</strong></h4>
+            <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
+                <tr>
+                    <th style="color:#000;" v-for="column in columns">{{ column }}</th>
+                    <th align="right" style="color:#A74436;">options</th>
+                </tr>
+                <tr v-for="result in searchResults">
+                    <td v-for="(value, column) in result"
+                        :width="getWidth(column)">
+                        {{ value }}
+                    </td>
+                    <td v-for="button in buttons" width="50px" align="right">
+                        <img src="assets/images/edit26.png"
+                             class="search-option"
+                             title="edit this entry"
+                             :data-edit="button" />
+                    </td>
+                    <td v-if="!hasButtons" width="50px" align="right" style="color:#bbb;">n/a</td>
+                </tr>
+            </table>
+        </span>
+    </div>
+</template>
+
+<script>
 export default {
   name: 'SearchResultsCategory',
   data () {
@@ -73,31 +101,10 @@ export default {
     hasButtons () {
       return this.buttons.length > 0
     }
-  },
-  template: `
-    <div class="search-category">
-        <span style="color:#0057C1;">
-            <h4>{{ categoryName }} <strong>( {{ resultsCount }} )</strong></h4>
-            <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
-                <tr>
-                    <th style="color:#000;" v-for="column in columns">{{ column }}</th>
-                    <th align="right" style="color:#A74436;">options</th>
-                </tr>
-                <tr v-for="result in searchResults">
-                    <td v-for="(value, column) in result"
-                        :width="getWidth(column)">
-                        {{ value }}
-                    </td>
-                    <td v-for="button in buttons" width="50px" align="right">
-                        <img src="assets/images/edit26.png"
-                             class="search-option"
-                             title="edit this entry"
-                             :data-edit="button" />
-                    </td>
-                    <td v-if="!hasButtons" width="50px" align="right" style="color:#bbb;">n/a</td>
-                </tr>
-            </table>    
-        </span>
-    </div>
-  `
+  }
 }
+</script>
+
+<style>
+
+</style>

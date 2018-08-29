@@ -15,7 +15,6 @@ class Config
     // Use minified scripts?
     const USE_MINIFIED = false;
 
-    private $assetsConfig;
     private $baseDir;
     private $configDir;
     private $dbConfig;
@@ -50,15 +49,6 @@ class Config
             $this->configDir = $this->getBaseDir() . '/' . self::CONFIG_DIR;
         }
         return $this->configDir;
-    }
-
-    /** @throws \Exception */
-    public function getAssetsConfig () : \stdClass
-    {
-        if (!$this->assetsConfig) {
-            $this->assetsConfig = $this->fetchConfigFile('assets', true);
-        }
-        return $this->assetsConfig;
     }
 
     /** @throws \Exception */

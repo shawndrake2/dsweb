@@ -1,3 +1,57 @@
+<template>
+    <div class="page">
+        <h3>
+            <span style="color:#888;">Character &raquo;</span> ( {{ getCharId }} ) {{ getCharName }}
+        </h3>
+
+        <h5>Account</h5>
+        <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
+            <tr>
+                <td>
+                    <span class="edit-label">ID</span> {{ getAccountId }}
+                </td>
+                <td>
+                    <span class="edit-label">Name</span> {{ getAccountName }}
+                </td>
+                <td>
+                    <span class="edit-label">Email #1</span> {{ getAccountEmail }}
+                </td>
+                <td>
+                    <span class="edit-label">Email #2</span> {{ getAccountSecondaryEmail }}
+                </td>
+                <td>
+                    <span class="edit-label">Created</span> {{ getAccountCreated }}
+                </td>
+                <td>
+                    <span class="edit-label">Modified</span> {{ getAccountModified }}
+                </td>
+                <td>
+                    <span class="edit-label">Status</span> {{ getAccountStatus }}
+                </td>
+                <td>
+                    <span class="edit-label">Privileges</span> {{ getAccountPrivileges }}
+                </td>
+            </tr>
+        </table>
+
+        <h5>Character</h5>
+        <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
+            <tr>
+                <td>
+                    <span class="edit-label">ID</span> {{ getCharId }}</td>
+                <td><span class="edit-label">Name</span> {{ getCharName }}</td>
+                <td><span class="edit-label">Gil</span> {{ getGil }}</td>
+                <td><span class="edit-label">Rotation</span> {{ getCharRotation }}</td>
+                <td><span class="edit-label">Position</span> {{ getCharPosition }}</td>
+                <td><span class="edit-label">Boundary</span> {{ getCharBoundary }}</td>
+                <td><span class="edit-label">Playtime</span> {{ getCharPlaytime }}</td>
+                <td><span class="edit-label">GMLevel</span> {{ getCharGMLevel }}</td>
+            </tr>
+        </table>
+    </div>
+</template>
+
+<script>
 import TimeHelper from '../../helper/TimeHelper.js'
 
 const timeHelper = new TimeHelper()
@@ -11,7 +65,6 @@ export default {
       })
       .then(json => {
         this.character = json
-        console.log(this.character)
       })
       .catch(e => {
         console.log(e)
@@ -92,57 +145,10 @@ export default {
     getGil: function () {
       return this.character.gil || 0
     }
-  },
-  template: `
-    <div class="page">
-      <h3>
-          <span style="color:#888;">Character &raquo;</span> ( {{ getCharId }} ) {{ getCharName }}
-      </h3>
-
-      <h5>Account</h5>
-      <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
-        <tr>
-            <td>
-                <span class="edit-label">ID</span> {{ getAccountId }}
-            </td>
-            <td>
-                <span class="edit-label">Name</span> {{ getAccountName }}
-            </td>
-            <td>
-                <span class="edit-label">Email #1</span> {{ getAccountEmail }}
-            </td>
-            <td>
-                <span class="edit-label">Email #2</span> {{ getAccountSecondaryEmail }}
-            </td>
-            <td>
-                <span class="edit-label">Created</span> {{ getAccountCreated }}
-            </td>
-            <td>
-                <span class="edit-label">Modified</span> {{ getAccountModified }}
-            </td>
-            <td>
-                <span class="edit-label">Status</span> {{ getAccountStatus }}
-            </td>
-            <td>
-                <span class="edit-label">Privileges</span> {{ getAccountPrivileges }}
-            </td>
-        </tr>
-      </table>
-
-      <h5>Character</h5>
-      <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
-          <tr>
-              <td>
-                <span class="edit-label">ID</span> {{ getCharId }}</td>
-              <td><span class="edit-label">Name</span> {{ getCharName }}</td>
-              <td><span class="edit-label">Gil</span> {{ getGil }}</td>
-              <td><span class="edit-label">Rotation</span> {{ getCharRotation }}</td>
-              <td><span class="edit-label">Position</span> {{ getCharPosition }}</td>
-              <td><span class="edit-label">Boundary</span> {{ getCharBoundary }}</td>
-              <td><span class="edit-label">Playtime</span> {{ getCharPlaytime }}</td>
-              <td><span class="edit-label">GMLevel</span> {{ getCharGMLevel }}</td>
-          </tr>
-      </table>
-    </div>
-  `
+  }
 }
+</script>
+
+<style>
+
+</style>

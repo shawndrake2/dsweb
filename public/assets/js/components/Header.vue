@@ -1,9 +1,4 @@
-export default {
-  name: 'Header',
-  props: {
-    siteName: String
-  },
-  template: `
+<template>
     <header>
         <h1 class="logo">
             {{ siteName }}
@@ -12,5 +7,17 @@ export default {
             <a href="#">Login</a>
         </div>
     </header>
-  `
+</template>
+
+<script>
+export default {
+  name: 'Header',
+  props: {
+    siteName: String
+  }
 }
+</script>
+
+<style>
+
+</style>
