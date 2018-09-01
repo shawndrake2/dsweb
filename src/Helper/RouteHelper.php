@@ -4,6 +4,7 @@ namespace DsWeb\Helper;
 
 use DsWeb\Controller\AuctionHouseController;
 use DsWeb\Controller\CharacterController;
+use DsWeb\Controller\MobController;
 use DsWeb\Controller\SearchController;
 use DsWeb\Controller\ServerController;
 use RapidRoute\RouteCollection;
@@ -25,6 +26,11 @@ class RouteHelper
                 $routes->get(
                     '/data/character/{id}',
                     ['handler' => [CharacterController::class, 'getCharacterInfo']]
+                );
+
+                $routes->get(
+                    '/data/mobs/notorious',
+                    ['handler' => [MobController::class, 'getActiveNotoriousMonsters']]
                 );
 
                 $routes->get(

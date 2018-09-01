@@ -63,18 +63,34 @@ return function ($method, $uri) {
         
         case 3:
             list($s0, $s1, $s2) = $segments;
-            if ($s2 !== '' && $s0 === 'data' && $s1 === 'character') {
-                switch ($method) {
-                    case 'GET':
-                    case 'HEAD':
-                        return [2, ['handler' => [
-                            0 => 'DsWeb\\Controller\\CharacterController',
-                            1 => 'getCharacterInfo',
-                        ]], ['id' => $s2]];
-                    default:
-                        $allowedHttpMethods[] = 'GET';
-                        $allowedHttpMethods[] = 'HEAD';
-                        break;
+            if ($s0 === 'data') {
+                if ($s2 !== '' && $s1 === 'character') {
+                    switch ($method) {
+                        case 'GET':
+                        case 'HEAD':
+                            return [2, ['handler' => [
+                                0 => 'DsWeb\\Controller\\CharacterController',
+                                1 => 'getCharacterInfo',
+                            ]], ['id' => $s2]];
+                        default:
+                            $allowedHttpMethods[] = 'GET';
+                            $allowedHttpMethods[] = 'HEAD';
+                            break;
+                    }
+                }
+                if ($s1 === 'mobs' && $s2 === 'notorious') {
+                    switch ($method) {
+                        case 'GET':
+                        case 'HEAD':
+                            return [2, ['handler' => [
+                                0 => 'DsWeb\\Controller\\MobController',
+                                1 => 'getActiveNotoriousMonsters',
+                            ]], []];
+                        default:
+                            $allowedHttpMethods[] = 'GET';
+                            $allowedHttpMethods[] = 'HEAD';
+                            break;
+                    }
                 }
             }
             return isset($allowedHttpMethods) ? [1, $allowedHttpMethods] : [0];
