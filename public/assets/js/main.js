@@ -5,6 +5,7 @@ import { faCheck, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global styles
+import 'bulma/css/bulma.css'
 import '../css/styles.css'
 import '../css/styles_compressed.css'
 

@@ -1,39 +1,39 @@
 <template>
-    <tr :style="getCss(listing)">
-        <td align="center" style="color: #aaa; font-size: 14px;">
+    <div class="columns" :style="getCss(listing)">
+        <div class="column" style="color: #aaa; font-size: 14px;">
             {{ getId(listing) }}
-        </td>
-        <td>
+        </div>
+        <div class="column">
             <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
-        </td>
-        <td>
+        </div>
+        <div class="column">
             {{ getItemName(listing) }}
-        </td>
-        <td align="center" class="generic-table-symbol" style="color:#aaa;">
+        </div>
+        <div class="column generic-symbol" style="color:#aaa;">
             <font-awesome-icon :icon="getStackCode(listing)" />
-        </td>
-        <td align="right">
+        </div>
+        <div class="column is-centered" align="right">
             {{ getAhPrice(listing) }}
-        </td>
-        <td>
+        </div>
+        <div class="column">
             {{ getListTime(listing) }}
-        </td>
-        <td align="right">
+        </div>
+        <div class="column" align="right">
             {{ getSoldPrice(listing) }}
-        </td>
-        <td>
+        </div>
+        <div class="column">
             {{ getSoldTime(listing) }}
-        </td>
-        <td>
+        </div>
+        <div class="column">
             {{ getProfit(listing) }}
-        </td>
-        <td>
+        </div>
+        <div class="column">
             {{ getCharacterName(listing) }}
-        </td>
-        <td align="center" class="form" style="padding: 0;">
+        </div>
+        <div class="column form" style="padding: 0;">
             <span v-html="getAction(listing)"></span>
-        </td>
-    </tr>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -96,5 +96,9 @@ export default {
 </script>
 
 <style>
-
+    .generic-symbol {
+        font-size:22px !important;
+        line-height:10px;
+        color: #666;
+    }
 </style>

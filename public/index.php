@@ -23,7 +23,7 @@ try {
             list($controller, $method) = $result->getRouteData()['handler'];
             $parameters = $result->getParameters();
             $controller = new $controller();
-            $controller->{$method}($parameters);
+            $controller->{$method}($parameters, $_GET);
             break;
         default:
             $siteName = Config::SITE_NAME;

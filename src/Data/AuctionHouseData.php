@@ -4,25 +4,34 @@ namespace DsWeb\Data;
 
 class AuctionHouseData extends AbstractData
 {
+    const STATUSES = [
+        'sold',
+        'unsold'
+    ];
+
     private $filters;
 
     private $page = 1;
     private $maxPerPage = 50;
-    private $showAll = true;
-    private $soldOnly = true;
 
     function __construct($filters = null)
     {
         $this->filters = $filters;
     }
 
-    public function getListings()
+    /**
+     * possible filters:
+     *  status={sold,unsold}
+     */
+    public function getListings(array $queryParams)
     {
+        $status = $this->getStatus($queryParams);
+
         // where setup
         $where = '';
-        if (!$this->showAll) {
+        if ($status !== 'all') {
             $where = 'WHERE ah.sell_date';
-            $where = $this->soldOnly ? "${where} != 1" : "${where} = 0";
+            $where = $status === 'sold' ? "${where} != 0" : "${where} = 0";
         }
 
         // Setup query
@@ -54,5 +63,11 @@ class AuctionHouseData extends AbstractData
             $listings[] = $record;
         }
         return $listings;
+    }
+
+    private function getStatus(array $queryParams)
+    {
+        $status = $queryParams['status'] ?? null;
+        return in_array($status, self::STATUSES) ? $status : 'all';
     }
 }

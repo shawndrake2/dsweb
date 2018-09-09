@@ -80,5 +80,11 @@ export default {
 </script>
 
 <style>
-
+  .container {
+    margin: 20px 0;
+    background: #fff;
+    min-height: 200px;
+    border-radius: 2px;
+    box-shadow: inset 0 0 2px #555;
+  }
 </style>
