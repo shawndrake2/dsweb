@@ -35,7 +35,8 @@ export default {
     'app-listing': Listing
   },
   created () {
-    fetch('http://dsweb.local/data/auction-house')
+    // @TODO Add sorting/filter functionality on front end
+    fetch('http://dsweb.local/data/auction-house?status=unsold')
       .then(response => {
         return response.json()
       })
