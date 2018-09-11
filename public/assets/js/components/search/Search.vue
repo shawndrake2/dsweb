@@ -46,7 +46,7 @@ export default {
   methods: {
     search () {
       if (this.query.length >= this.minSearchLength) {
-        fetch(`http://dsweb.local/data/search?query=${this.query}`)
+        fetch(`/data/search?query=${this.query}`)
           .then(response => {
             return response.json()
           })

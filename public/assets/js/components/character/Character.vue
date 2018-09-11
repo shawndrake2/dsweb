@@ -59,7 +59,7 @@ const timeHelper = new TimeHelper()
 export default {
   name: 'Character',
   created () {
-    fetch('http://dsweb.local/data/character/21828')
+    fetch('/data/character/21828')
       .then(response => {
         return response.json()
       })

@@ -1,36 +1,36 @@
 <template>
     <div class="columns" :style="getCss(listing)">
-        <div class="column" style="color: #aaa; font-size: 14px;">
+        <div class="column" v-if="fields.itemId" style="color: #aaa; font-size: 14px;">
             {{ getId(listing) }}
         </div>
-        <div class="column">
+        <div class="column" v-if="fields.icon">
             <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
         </div>
-        <div class="column">
+        <div class="column" v-if="fields.itemName">
             {{ getItemName(listing) }}
         </div>
-        <div class="column generic-symbol" style="color:#aaa;">
+        <div class="column generic-symbol" v-if="fields.stack" style="color:#aaa;">
             <font-awesome-icon :icon="getStackCode(listing)" />
         </div>
-        <div class="column is-centered" align="right">
+        <div class="column is-centered" v-if="fields.price" align="right">
             {{ getAhPrice(listing) }}
         </div>
-        <div class="column">
+        <div class="column" v-if="fields.listDate">
             {{ getListTime(listing) }}
         </div>
-        <div class="column" align="right">
+        <div class="column" v-if="fields.salePrice" align="right">
             {{ getSoldPrice(listing) }}
         </div>
-        <div class="column">
+        <div class="column" v-if="fields.saleDate">
             {{ getSoldTime(listing) }}
         </div>
-        <div class="column">
+        <div class="column" v-if="fields.profit">
             {{ getProfit(listing) }}
         </div>
-        <div class="column">
+        <div class="column" v-if="fields.seller">
             {{ getCharacterName(listing) }}
         </div>
-        <div class="column form" style="padding: 0;">
+        <div class="column form" v-if="fields.actions" style="padding: 0;">
             <span v-html="getAction(listing)"></span>
         </div>
     </div>
@@ -44,6 +44,8 @@ const timeHelper = new TimeHelper()
 export default {
   name: 'Listing',
   props: {
+    fields: Object,
+    index: Number,
     listing: Object
   },
   methods: {
@@ -65,7 +67,7 @@ export default {
       return `http://static.ffxiah.com/images/icon/${listing['item_id']}.png`
     },
     getId (listing) {
-      return listing['ah_id']
+      return listing['item_id']
     },
     getItemName (listing) {
       return listing['item_name'].replace(/_/g, ' ')

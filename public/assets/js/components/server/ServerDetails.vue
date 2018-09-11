@@ -23,7 +23,7 @@
 export default {
   name: 'ServerDetails',
   created () {
-    fetch('http://dsweb.local/data/server')
+    fetch('/data/server')
       .then(response => {
         return response.json()
       })

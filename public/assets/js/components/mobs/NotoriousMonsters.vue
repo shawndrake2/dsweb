@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     fetchData () {
-      fetch('http://dsweb.local/data/mobs/notorious')
+      fetch('/data/mobs/notorious')
         .then(response => {
           return response.json()
         })
