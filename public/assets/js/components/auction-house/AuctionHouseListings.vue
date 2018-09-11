@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <h3>Auction House</h3>
+        <h3>Auction House ({{ listingTotal }})</h3>
         <div v-if="listings.length > 0" class="ah-results">
             <div class="result-headings columns is-centered has-text-weight-semibold">
                 <div class="column" v-if="fields.itemId" v-on:click="setSort('item_id')" style="color:#888;">Item Id</div>
@@ -19,7 +19,7 @@
             <div v-if="pages > 1 && currentPage !== 1" v-on:click="prevPage" style="float: left">
                 Prev
             </div>
-            <div v-if="pages > 1" v-on:click="nextPage" style="float: right">
+            <div v-if="currentPage < pages" v-on:click="nextPage" style="float: right">
                 Next
             </div>
         </div>
