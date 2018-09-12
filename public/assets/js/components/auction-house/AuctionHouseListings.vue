@@ -1,40 +1,66 @@
 <template>
     <div class="page">
         <h2 class="title is-3">Auction House ({{ listingTotal }})</h2>
-        <div v-if="listings.length > 0" class="ah-results">
-            <div class="result-headings columns is-centered has-text-weight-semibold">
-                <div class="column" v-on:click="setSort('item_id')">
-                    <div class="title is-5">Item Id</div>
+        <div class="columns">
+            <div class="sidebar-left column">
+                <div v-if="listings.length > 0" class="ah-results">
+                    <app-listing v-for="(listing, index) in listings" :listing="listing" :key="'listing' + index" :fields="fields" :index="index"></app-listing>
+                    <app-pagination
+                            :currentPage="currentPage"
+                            :totalPages="pages"
+                            v-on:previous-page="prevPage"
+                            v-on:next-page="nextPage"
+                            v-on:goto-page="setPage($event)"></app-pagination>
                 </div>
-                <div class="column" v-on:click="setSort('item_name')">
-                    <div class="title is-5">Item</div>
-                </div>
-                <div class="column" v-on:click="setSort('ah_price')">
-                    <div class="title is-5">Price</div>
-                </div>
-                <div class="column" v-on:click="setSort('ah_date')">
-                    <div class="title is-5">List Date</div>
-                </div>
-                <div class="column" v-on:click="setSort('ah_sale')">
-                    <div class="title is-5">Sale</div>
-                </div>
-                <div class="column" v-on:click="setSort('ah_saledate')">
-                    <div class="title is-5">Sale Date</div>
-                </div>
-                <div class="column" v-on:click="setSort('character_name')">
-                    <div class="title is-5">Character</div>
+                <div class="notification is-danger" v-if="listings.length === 0">
+                    There is nothing for sale on the Auction House.
                 </div>
             </div>
-            <app-listing v-for="(listing, index) in listings" :listing="listing" :key="'listing' + index" :fields="fields" :index="index"></app-listing>
-            <app-pagination
-                    :currentPage="currentPage"
-                    :totalPages="pages"
-                    v-on:previous-page="prevPage"
-                    v-on:next-page="nextPage"
-                    v-on:goto-page="setPage($event)"></app-pagination>
-        </div>
-        <div class="notification is-danger" v-if="listings.length === 0">
-            There is nothing for sale on the Auction House.
+            <div class="sidebar-right column is-one-quarter" v-if="listings.length > 0">
+                <div class="title is-5">Items Per Page</div>
+                <div class="field" v-for="n in 5">
+                    <input class="is-checkradio"
+                           :id="'limit-' + n"
+                           type="radio"
+                           name="limit"
+                           :value="n * 20"
+                           :checked="value === maxResults"
+                           v-model="maxResults">
+                    <label :for="'limit-' + n">{{ n * 20 }}</label>
+                </div>
+                <div class="title is-5">Auction Status</div>
+                <div class="field" v-for="(label, value) in statusOptions">
+                    <input class="is-checkradio"
+                           :id="'status-' + value"
+                           type="radio"
+                           name="status"
+                           :value="value"
+                           :checked="value === status"
+                           v-model="status">
+                    <label :for="'status-' + value">{{ label }}</label>
+                </div>
+                <div class="title is-5">Sort By</div>
+                <div class="field" v-for="(label, value) in sortOptions">
+                    <input class="is-checkradio"
+                           :id="'sortBy-' + value"
+                           type="radio"
+                           name="sortBy"
+                           :value="value"
+                           :checked="value === sort"
+                           v-model="sort">
+                    <label :for="'sortBy-' + value">{{ label }}</label>
+                </div>
+                <div class="title is-5">Sort Order</div>
+                <div class="field">
+                    <input id="sortOrder"
+                           type="checkbox"
+                           name="sortOrder"
+                           class="switch"
+                           :checked="sortOrder === 'desc'"
+                           v-model="toggleSort" >
+                    <label for="sortOrder">{{ sortOrder.toUpperCase() }}</label>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +88,9 @@ export default {
     pages () {
       return this.listingTotal > this.maxResults ?
         Math.ceil(this.listingTotal / this.maxResults) : 1
+    },
+    sortOrder () {
+      return this.toggleSort ? 'desc' : 'asc'
     },
     url () {
       return '/data/auction-house' +
@@ -96,12 +125,24 @@ export default {
       },
       listings: [],
       listingTotal: 0,
-      // @TODO Make this editable
-      maxResults: 80,
-      sort: 'ah_id',
-      sortOrder: 'asc',
-      // @TODO Default status to 'all'
-      status: 'sold'
+      maxResults: 20,
+      sort: 'item_name',
+      sortOptions: {
+        "item_id": "Item Id",
+        "item_name": "Item",
+        "ah_price": "Price",
+        "ah_date": "List Date",
+        "ah_sale": "Sale",
+        "ah_saledate": "Sale Date",
+        "character_name": "Character"
+      },
+      toggleSort: false,
+      status: 'all',
+      statusOptions: {
+        "all": "All",
+        "sold": "Sold",
+        "unsold": "Active"
+      },
     }
   },
   methods: {
@@ -129,14 +170,19 @@ export default {
     setPage(pageNum) {
       this.currentPage = pageNum
       this.fetchData()
+    }
+  },
+  watch: {
+    maxResults: function () {
+      this.fetchData()
     },
-    setSort(name) {
-      if (this.sort === name) {
-        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
-      } else {
-        this.sortOrder = 'asc'
-        this.sort = name
-      }
+    sort: function () {
+      this.fetchData()
+    },
+    status: function () {
+      this.fetchData()
+    },
+    toggleSort: function () {
       this.fetchData()
     }
   }
