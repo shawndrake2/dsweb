@@ -1,24 +1,26 @@
 <template>
     <div class="search-category">
-        <span style="color:#0057C1;">
-            <h4>{{ categoryName }} <strong>( {{ resultsCount }} )</strong></h4>
-            <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
-                <tr>
-                    <th style="color:#000;" v-for="column in columns">{{ column }}</th>
-                    <th align="right" style="color:#A74436;">options</th>
-                </tr>
-                <tr v-for="result in searchResults">
-                    <td v-for="(value, column) in result"
-                        :width="getWidth(column)">
-                        {{ value }}
-                    </td>
-                    <td v-for="button in buttons" width="50px" align="right">
-                        <font-awesome-icon icon="edit" />
-                    </td>
-                    <td v-if="!hasButtons" width="50px" align="right" style="color:#bbb;">n/a</td>
-                </tr>
-            </table>
-        </span>
+        <div class="title is-5">
+            {{ categoryName }} <strong>( {{ resultsCount }} )</strong>
+        </div>
+        <div class="columns">
+            <div class="column" v-for="column in columns">
+                <div class="title is-6">{{ column }}</div>
+            </div>
+            <div class="column">
+                <div class="title is-6" align="right" style="color:#A74436;">options</div>
+            </div>
+        </div>
+        <div class="columns" v-for="result in searchResults">
+            <div class="column" v-for="(value, column) in result"
+                :width="getWidth(column)">
+                {{ value }}
+            </div>
+            <div class="column" v-for="button in buttons" align="right">
+                <font-awesome-icon icon="edit" />
+            </div>
+            <div class="column" v-if="!hasButtons" align="right" style="color:#bbb;">n/a</div>
+        </div>
     </div>
 </template>
 
@@ -104,10 +106,6 @@ export default {
 
 <style lang="scss">
     .search-category {
-        padding: 5px;
-        opacity: 0.6;
-        &:hover {
-            opacity: 1;
-        }
+        margin-top: 20px;
     }
 </style>

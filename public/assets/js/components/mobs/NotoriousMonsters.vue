@@ -4,28 +4,44 @@
         <div v-if="!isEmpty(mobs)">
             <div class="columns">
                 <div class="column">
-                    Id
+                    <div class="title is-6">
+                        Id
+                    </div>
                 </div>
                 <div class="column">
-                    Name
+                    <div class="title is-6">
+                        Name
+                    </div>
                 </div>
                 <div class="column">
-                    Zone Id
+                    <div class="title is-6">
+                        Zone Id
+                    </div>
                 </div>
                 <div class="column">
-                    Zone Name
+                    <div class="title is-6">
+                        Zone Name
+                    </div>
                 </div>
                 <div class="column">
-                    Position (X)
+                    <div class="title is-6">
+                        Position (X)
+                    </div>
                 </div>
                 <div class="column">
-                    Position (Y)
+                    <div class="title is-6">
+                        Position (Y)
+                    </div>
                 </div>
                 <div class="column">
-                    Position (Z)
+                    <div class="title is-6">
+                        Position (Z)
+                    </div>
                 </div>
                 <div class="column">
-                    On the move?
+                    <div class="title is-6">
+                        On the move?
+                    </div>
                 </div>
             </div>
             <div v-for="(zoneNms,zone) in mobs">
