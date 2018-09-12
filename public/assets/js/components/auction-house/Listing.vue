@@ -1,39 +1,48 @@
 <template>
-    <div class="columns" :style="getCss(listing)">
-        <div class="column" v-if="fields.itemId" style="color: #aaa; font-size: 14px;">
-            {{ getId(listing) }}
+    <div :class="'card ' + statusCss">
+        <div class="card-header">
+            <p class="card-header-title">
+                {{ charName }}
+            </p>
+            <div class="stack-icon tooltip" data-tooltip="Is a stack?">
+                <font-awesome-icon :icon="stackCode" :size="'2x'" :pull="'right'" />
+            </div>
         </div>
-        <div class="column" v-if="fields.icon">
-            <figure class="image is-32x32">
-                <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
-            </figure>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-48x48">
+                        <img :src="icon" :alt="itemName" />
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4">{{ itemName }}</p>
+                    <p class="subtitle is-6">{{ itemId }}</p>
+                    <p class="subtitle is-6">
+                        <time :datetime="listTime">{{ listTime }}</time>
+                    </p>
+                </div>
+                <div class="media-right title is-2">
+                    {{ price }}
+                </div>
+            </div>
         </div>
-        <div class="column" v-if="fields.itemName">
-            {{ getItemName(listing) }}
+        <div class="card-footer" v-if="isSold">
+            <div class="card-footer-item">
+                <div class="sold-item-title">Sold For</div>
+                <div class="title is-3">{{ soldPrice }}</div>
+            </div>
+            <div class="card-footer-item">
+                <div class="sold-item-title">Sold On</div>
+                <div>{{ soldTime }}</div>
+            </div>
+            <div :class="'card-footer-item profit ' + profitClass">
+                <div class="sold-item-title">Profit</div>
+                <div class="title is-3">{{ profit }}</div>
+            </div>
         </div>
-        <div class="column" v-if="fields.stack" style="color:#aaa;">
-            <font-awesome-icon :icon="getStackCode(listing)" :size="'2x'" />
-        </div>
-        <div class="column is-centered" v-if="fields.price" align="right">
-            {{ getAhPrice(listing) }}
-        </div>
-        <div class="column" v-if="fields.listDate">
-            {{ getListTime(listing) }}
-        </div>
-        <div class="column" v-if="fields.salePrice" align="right">
-            {{ getSoldPrice(listing) }}
-        </div>
-        <div class="column" v-if="fields.saleDate">
-            {{ getSoldTime(listing) }}
-        </div>
-        <div class="column" v-if="fields.profit">
-            {{ getProfit(listing) }}
-        </div>
-        <div class="column" v-if="fields.seller">
-            {{ getCharacterName(listing) }}
-        </div>
-        <div class="column form" v-if="fields.actions" style="padding: 0;">
-            <span v-html="getAction(listing)"></span>
+        <div class="card-footer-item button is-link" v-else>
+            Buy
         </div>
     </div>
 </template>
@@ -45,60 +54,102 @@ const timeHelper = new TimeHelper()
 
 export default {
   name: 'Listing',
+  computed: {
+    charName () {
+      return this.listing['character_name'] ? this.listing['character_name'] : 'AHBOT'
+    },
+    icon () {
+      return `http://static.ffxiah.com/images/icon/${this.itemId}.png`
+    },
+    isSold () {
+      return this.listing['ah_saledate'] > 0
+    },
+    itemId () {
+      return this.listing['item_id']
+    },
+    itemName () {
+      return this.listing['item_name'].replace(/_/g, ' ')
+    },
+    listTime() {
+      return timeHelper.getAuctionTimeAsString(this.listing['ah_date'])
+    },
+    price () {
+      return Number.parseFloat(this.listing['ah_price'])
+    },
+    profit () {
+      return this.soldTime !== '-' ?
+        Number.parseFloat(this.soldPrice - this.price) :
+        '-'
+    },
+    profitClass () {
+      return this.profit > 0 ? 'ah-profit' : 'ah-noprofit'
+    },
+    soldPrice () {
+      return this.soldTime !== '-' ?
+        Number.parseFloat(this.listing['ah_sale']) :
+        '-'
+    },
+    soldTime() {
+      return this.isSold ?
+        timeHelper.getAuctionTimeAsString(this.listing['ah_saledate']) :
+        '-'
+    },
+    stackCode () {
+      return parseInt(this.listing['ah_stack']) === 0 ? 'times' : 'check'
+    },
+    statusCss () {
+      return this.isSold ? 'sold' : 'unsold'
+    }
+  },
   props: {
     fields: Object,
     index: Number,
     listing: Object
   },
   methods: {
-    getAction (listing) {
-      return this.getSoldTime(listing) === '-' ?
-        '<input type="button" value="Buy" style="padding:5px 8px;" />' :
-        ''
-    },
-    getAhPrice (listing) {
-      return Number.parseFloat(listing['ah_price'])
-    },
-    getCharacterName (listing) {
-      return listing['character_name'] ? listing['character_name'] : 'AHBOT'
-    },
-    getCss (listing) {
-      return this.getSoldTime(listing) !== '-' ? 'background:#FCF5C9;' : ''
-    },
-    getIcon (listing) {
-      return `http://static.ffxiah.com/images/icon/${listing['item_id']}.png`
-    },
-    getId (listing) {
-      return listing['item_id']
-    },
-    getItemName (listing) {
-      return listing['item_name'].replace(/_/g, ' ')
-    },
-    getListTime(listing) {
-      return timeHelper.getAuctionTimeAsString(listing['ah_date'])
-    },
-    getProfit (listing) {
-      return this.getSoldTime(listing) !== '-' ?
-        Number.parseFloat(this.getSoldPrice(listing) - this.getAhPrice(listing)) :
-        '-'
-    },
-    getSoldTime(listing) {
-      return listing['ah_saledate'] > 0 ?
-        timeHelper.getAuctionTimeAsString(listing['ah_saledate']) :
-        '-'
-    },
-    getSoldPrice (listing) {
-      return this.getSoldTime(listing) !== '-' ?
-        Number.parseFloat(listing['ah_sale']) :
-        '-'
-    },
-    getStackCode (listing) {
-      return parseInt(listing['ah_stack']) === 0 ? 'times' : 'check'
-    }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+    .card {
+        margin-top: 20px;
+        .media-content {
+            .subtitle {
+                margin-bottom: 0;
+            }
+        }
+        .card-footer-item {
+            flex-wrap: wrap;
+            & div {
+                min-width: 100%;
+                text-align: center;
+            }
+            .sold-item-title {
+                font-weight: bold;
+            }
+            &.profit {
+                color: white;
+                & .title {
+                    color: white
+                }
+                &.ah-noprofit {
+                    background-color: red;
+                }
+                &.ah-profit {
+                    background-color: green;
+                }
+            }
+        }
+    }
+    .sold {
+        background: #FCF5C9;
+    }
+    .stack-icon {
+        color: #aaa;
+        margin: 10px;
+    }
+    .unsold {
 
+    }
 </style>

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global styles
 import 'bulma/css/bulma.css'
+import 'bulma-tooltip'
 
 library.add(faCheck)
 library.add(faEdit)

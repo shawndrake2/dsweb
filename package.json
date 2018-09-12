@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "bulma": "^0.7.1",
+    "bulma-tooltip": "^2.0.2",
     "css-loader": "^1.0.0",
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
