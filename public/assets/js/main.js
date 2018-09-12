@@ -1,16 +1,15 @@
 import Vue from 'vue'
 import App from './components/App.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheck, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global styles
 import 'bulma/css/bulma.css'
 import 'bulma-tooltip'
 
-library.add(faCheck)
 library.add(faEdit)
-library.add(faTimes)
+library.add(faLayerGroup)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

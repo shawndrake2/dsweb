@@ -4,8 +4,8 @@
             <p class="card-header-title">
                 {{ charName }}
             </p>
-            <div class="stack-icon tooltip" data-tooltip="Is a stack?">
-                <font-awesome-icon :icon="stackCode" :size="'2x'" :pull="'right'" />
+            <div class="stack-icon tooltip" data-tooltip="stack" v-if="isStack">
+                <font-awesome-icon icon="layer-group" :size="'2x'" :pull="'right'" />
             </div>
         </div>
         <div class="card-content">
@@ -94,8 +94,8 @@ export default {
         timeHelper.getAuctionTimeAsString(this.listing['ah_saledate']) :
         '-'
     },
-    stackCode () {
-      return parseInt(this.listing['ah_stack']) === 0 ? 'times' : 'check'
+    isStack () {
+      return parseInt(this.listing['ah_stack']) > 0
     },
     statusCss () {
       return this.isSold ? 'sold' : 'unsold'
