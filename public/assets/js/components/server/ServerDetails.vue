@@ -13,7 +13,7 @@
                 </tr>
             </table>
         </div>
-        <div class="error" v-if="isEmpty(serverConfig)">
+        <div class="notification is-danger" v-if="isEmpty(serverConfig)">
             There is nothing for sale on the Auction House.
         </div>
     </div>

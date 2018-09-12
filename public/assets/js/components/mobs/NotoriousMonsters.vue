@@ -48,7 +48,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="error" v-else>
+        <div class="notification is-danger" v-else>
             There are no unclaimed Notorious Monsters for you to battle.
         </div>
     </div>

@@ -225,35 +225,4 @@ export default {
     padding: 30px;
     font-family: Arial;
   }
-  .success, .error
-  {
-    padding: 10px;
-    border-radius: 2px;
-    color: #fff;
-    text-shadow:1px 1px 1px #555;
-  }
-  .success
-  {
-    border-left:solid 3px #3E860D;
-    background: rgb(126,182,36);
-    background: -moz-linear-gradient(top,  rgba(126,182,36,1) 0%, rgba(99,148,30,1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(126,182,36,1)), color-stop(100%,rgba(99,148,30,1)));
-    background: -webkit-linear-gradient(top,  rgba(126,182,36,1) 0%,rgba(99,148,30,1) 100%);
-    background: -o-linear-gradient(top,  rgba(126,182,36,1) 0%,rgba(99,148,30,1) 100%);
-    background: -ms-linear-gradient(top,  rgba(126,182,36,1) 0%,rgba(99,148,30,1) 100%);
-    background: linear-gradient(to bottom,  rgba(126,182,36,1) 0%,rgba(99,148,30,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7eb624', endColorstr='#63941e',GradientType=0 );
-  }
-  .error
-  {
-    border-left:solid 3px #DF8686;
-    background: rgb(182,36,41);
-    background: -moz-linear-gradient(top,  rgba(182,36,41,1) 0%, rgba(148,30,30,1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(182,36,41,1)), color-stop(100%,rgba(148,30,30,1)));
-    background: -webkit-linear-gradient(top,  rgba(182,36,41,1) 0%,rgba(148,30,30,1) 100%);
-    background: -o-linear-gradient(top,  rgba(182,36,41,1) 0%,rgba(148,30,30,1) 100%);
-    background: -ms-linear-gradient(top,  rgba(182,36,41,1) 0%,rgba(148,30,30,1) 100%);
-    background: linear-gradient(to bottom,  rgba(182,36,41,1) 0%,rgba(148,30,30,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b62429', endColorstr='#941e1e',GradientType=0 );
-  }
 </style>

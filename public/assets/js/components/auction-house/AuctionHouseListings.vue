@@ -23,7 +23,7 @@
                 Next
             </div>
         </div>
-        <div class="error" v-if="listings.length === 0">
+        <div class="notification is-danger" v-if="listings.length === 0">
             There is nothing for sale on the Auction House.
         </div>
     </div>
