@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Global styles
 import 'bulma/css/bulma.css'
-import '../css/styles.css'
-import '../css/styles_compressed.css'
 
 library.add(faCheck)
 library.add(faEdit)

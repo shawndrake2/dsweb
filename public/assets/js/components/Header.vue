@@ -19,5 +19,10 @@ export default {
 </script>
 
 <style>
-
+    .logo {
+        margin: 20px 0 0 0;
+        font-size: 32px;
+        font-family: Arial;
+        letter-spacing: -1px;
+    }
 </style>

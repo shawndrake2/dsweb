@@ -150,5 +150,10 @@ export default {
 </script>
 
 <style>
-
+    .edit-label {
+        color: #888;
+        font-size: 11px;
+        display: block;
+        margin: 0 0 8px 0;
+    }
 </style>

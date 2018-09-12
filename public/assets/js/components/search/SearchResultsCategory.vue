@@ -103,5 +103,12 @@ export default {
 </script>
 
 <style>
-
+    .search-category {
+        font-size: 15px;
+        padding: 5px;
+        opacity: 0.6;
+    }
+    .search-category:hover {
+        opacity: 1;
+    }
 </style>
