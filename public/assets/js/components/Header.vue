@@ -1,10 +1,14 @@
 <template>
     <header>
-        <h1 class="title is-1">
-            {{ siteName }}
-        </h1>
-        <div class="">
-            <a href="#">Login</a>
+        <div class="columns">
+            <div class="column">
+                <h1 class="title is-1">
+                    {{ siteName }}
+                </h1>
+            </div>
+            <div class="column">
+                <a class="button is-dark is-pulled-right">Login</a>
+            </div>
         </div>
     </header>
 </template>
@@ -19,5 +23,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+    header {
+        padding: 20px;
+    }
 </style>
