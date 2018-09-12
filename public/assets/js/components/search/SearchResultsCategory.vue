@@ -104,7 +104,6 @@ export default {
 
 <style lang="scss">
     .search-category {
-        font-size: 15px;
         padding: 5px;
         opacity: 0.6;
         &:hover {

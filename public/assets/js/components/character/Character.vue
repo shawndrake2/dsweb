@@ -1,53 +1,48 @@
 <template>
     <div class="page">
-        <h3>
-            <span style="color:#888;">Character &raquo;</span> ( {{ getCharId }} ) {{ getCharName }}
-        </h3>
+        <h2 class="title is-3">
+            <span>Character &raquo;</span> ( {{ getCharId }} ) {{ getCharName }}
+        </h2>
 
-        <h5>Account</h5>
-        <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
-            <tr>
-                <td>
-                    <span class="edit-label">ID</span> {{ getAccountId }}
-                </td>
-                <td>
-                    <span class="edit-label">Name</span> {{ getAccountName }}
-                </td>
-                <td>
-                    <span class="edit-label">Email #1</span> {{ getAccountEmail }}
-                </td>
-                <td>
-                    <span class="edit-label">Email #2</span> {{ getAccountSecondaryEmail }}
-                </td>
-                <td>
-                    <span class="edit-label">Created</span> {{ getAccountCreated }}
-                </td>
-                <td>
-                    <span class="edit-label">Modified</span> {{ getAccountModified }}
-                </td>
-                <td>
-                    <span class="edit-label">Status</span> {{ getAccountStatus }}
-                </td>
-                <td>
-                    <span class="edit-label">Privileges</span> {{ getAccountPrivileges }}
-                </td>
-            </tr>
-        </table>
+        <h3 class="title is-5">Account</h3>
+        <div class="columns">
+            <div class="column">
+                <div class="title is-6">ID</div> {{ getAccountId }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Name</div> {{ getAccountName }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Email #1</div> {{ getAccountEmail }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Email #2</div> {{ getAccountSecondaryEmail }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Created</div> {{ getAccountCreated }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Modified</div> {{ getAccountModified }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Status</div> {{ getAccountStatus }}
+            </div>
+            <div class="column">
+                <div class="title is-6">Privileges</div> {{ getAccountPrivileges }}
+            </div>
+        </div>
 
-        <h5>Character</h5>
-        <table class="generic-table" border="0" cellpadding="10" cellspacing="0">
-            <tr>
-                <td>
-                    <span class="edit-label">ID</span> {{ getCharId }}</td>
-                <td><span class="edit-label">Name</span> {{ getCharName }}</td>
-                <td><span class="edit-label">Gil</span> {{ getGil }}</td>
-                <td><span class="edit-label">Rotation</span> {{ getCharRotation }}</td>
-                <td><span class="edit-label">Position</span> {{ getCharPosition }}</td>
-                <td><span class="edit-label">Boundary</span> {{ getCharBoundary }}</td>
-                <td><span class="edit-label">Playtime</span> {{ getCharPlaytime }}</td>
-                <td><span class="edit-label">GMLevel</span> {{ getCharGMLevel }}</td>
-            </tr>
-        </table>
+        <h3 class="title is-5">Character</h3>
+        <div class="columns">
+            <div class="column"><div class="title is-6">ID</div> {{ getCharId }}</div>
+            <div class="column"><div class="title is-6">Name</div> {{ getCharName }}</div>
+            <div class="column"><div class="title is-6">Gil</div> {{ getGil }}</div>
+            <div class="column"><div class="title is-6">Rotation</div> {{ getCharRotation }}</div>
+            <div class="column"><div class="title is-6">Position</div> {{ getCharPosition }}</div>
+            <div class="column"><div class="title is-6">Boundary</div> {{ getCharBoundary }}</div>
+            <div class="column"><div class="title is-6">Playtime</div> {{ getCharPlaytime }}</div>
+            <div class="column"><div class="title is-6">GMLevel</div> {{ getCharGMLevel }}</div>
+        </div>
     </div>
 </template>
 
@@ -150,10 +145,5 @@ export default {
 </script>
 
 <style>
-    .edit-label {
-        color: #888;
-        font-size: 11px;
-        display: block;
-        margin: 0 0 8px 0;
-    }
+
 </style>

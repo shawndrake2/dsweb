@@ -4,13 +4,15 @@
             {{ getId(listing) }}
         </div>
         <div class="column" v-if="fields.icon">
-            <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
+            <figure class="image is-32x32">
+                <img :src="getIcon(listing)" style="margin:-3px -3px -5px -3px;" />
+            </figure>
         </div>
         <div class="column" v-if="fields.itemName">
             {{ getItemName(listing) }}
         </div>
-        <div class="column generic-symbol" v-if="fields.stack" style="color:#aaa;">
-            <font-awesome-icon :icon="getStackCode(listing)" />
+        <div class="column" v-if="fields.stack" style="color:#aaa;">
+            <font-awesome-icon :icon="getStackCode(listing)" :size="'2x'" />
         </div>
         <div class="column is-centered" v-if="fields.price" align="right">
             {{ getAhPrice(listing) }}
@@ -98,9 +100,5 @@ export default {
 </script>
 
 <style>
-    .generic-symbol {
-        font-size:22px !important;
-        line-height:10px;
-        color: #666;
-    }
+
 </style>

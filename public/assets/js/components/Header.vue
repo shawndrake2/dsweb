@@ -1,9 +1,9 @@
 <template>
     <header>
-        <h1 class="logo">
+        <h1 class="title is-1">
             {{ siteName }}
         </h1>
-        <div>
+        <div class="">
             <a href="#">Login</a>
         </div>
     </header>
@@ -18,11 +18,6 @@ export default {
 }
 </script>
 
-<style>
-    .logo {
-        margin: 20px 0 0 0;
-        font-size: 32px;
-        font-family: Arial;
-        letter-spacing: -1px;
-    }
+<style lang="scss">
+
 </style>

@@ -1,17 +1,15 @@
 <template>
     <div class="page">
-        <h3>Server Configuration</h3>
+        <h2 class="title is-3">Server Configuration</h2>
         <div v-if="!isEmpty(serverConfig)">
-            <table class="generic-table" cellspacing="0" border="0" cellpadding="10">
-                <tr class="generic-table-header">
-                    <th>Name</th>
-                    <th>Value</th>
-                </tr>
-                <tr v-for="(value, key) in serverConfig">
-                    <td>{{ key }}</td>
-                    <td>{{ value }}</td>
-                </tr>
-            </table>
+            <div class="columns">
+                <div class="column title is-5">Name</div>
+                <div class="column title is-5">Value</div>
+            </div>
+            <div class="columns" v-for="(value, key) in serverConfig">
+                <div class="column">{{ key }}</div>
+                <div class="column">{{ value }}</div>
+            </div>
         </div>
         <div class="notification is-danger" v-if="isEmpty(serverConfig)">
             There is nothing for sale on the Auction House.

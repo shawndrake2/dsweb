@@ -1,52 +1,48 @@
 <template>
     <div class="page">
-        <h3>Notorious Monsters</h3>
+        <h2 class="title is-3">Notorious Monsters</h2>
         <div v-if="!isEmpty(mobs)">
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Id
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Zone Id
-                        </th>
-                        <th>
-                            Zone Name
-                        </th>
-                        <th>
-                            Position (X)
-                        </th>
-                        <th>
-                            Position (Y)
-                        </th>
-                        <th>
-                            Position (Z)
-                        </th>
-                        <th>
-                            On the move?
-                        </th>
-                    </tr>
-                </thead>
-                <tbody v-for="(zoneNms,zone) in mobs">
-                    <tr>
-                        <th colspan="8" align="left">{{ zone }}</th>
-                    </tr>
-                    <tr v-for="mob in zoneNms">
-                        <td>{{ mob.mobId }}</td>
-                        <td>{{ mob.name }}</td>
-                        <td>{{ mob.zoneId }}</td>
-                        <td>{{ mob.zone }}</td>
-                        <td>{{ mob.locX }}</td>
-                        <td>{{ mob.locY }}</td>
-                        <td>{{ mob.locZ }}</td>
-                        <td>{{ onTheMove(parseInt(mob.moving)) }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="columns">
+                <div class="column">
+                    Id
+                </div>
+                <div class="column">
+                    Name
+                </div>
+                <div class="column">
+                    Zone Id
+                </div>
+                <div class="column">
+                    Zone Name
+                </div>
+                <div class="column">
+                    Position (X)
+                </div>
+                <div class="column">
+                    Position (Y)
+                </div>
+                <div class="column">
+                    Position (Z)
+                </div>
+                <div class="column">
+                    On the move?
+                </div>
+            </div>
+            <div v-for="(zoneNms,zone) in mobs">
+                <div>
+                    <div class="title is-5">{{ zone }}</div>
+                </div>
+                <div class="columns" v-for="mob in zoneNms">
+                    <div class="column">{{ mob.mobId }}</div>
+                    <div class="column">{{ mob.name }}</div>
+                    <div class="column">{{ mob.zoneId }}</div>
+                    <div class="column">{{ mob.zone }}</div>
+                    <div class="column">{{ mob.locX }}</div>
+                    <div class="column">{{ mob.locY }}</div>
+                    <div class="column">{{ mob.locZ }}</div>
+                    <div class="column">{{ ontheMove(parseInt(mob.moving)) }}</div>
+                </div>
+            </div>
         </div>
         <div class="notification is-danger" v-else>
             There are no unclaimed Notorious Monsters for you to battle.
@@ -85,7 +81,7 @@ export default {
     isEmpty (obj) {
       return !obj || Object.keys(obj).length === 0;
     },
-    onTheMove (value) {
+    ontheMove (value) {
       return value === 0 ? 'No' : 'Yes'
     },
     nextZone (zone) {

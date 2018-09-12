@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <h3>Search</h3>
+        <h2 class="title is-3">Search</h2>
         <div class="form">
             <table cellspacing="0" cellpadding="0" border="0">
                 <tr>

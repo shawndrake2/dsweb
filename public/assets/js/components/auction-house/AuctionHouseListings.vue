@@ -1,25 +1,47 @@
 <template>
     <div class="page">
-        <h3>Auction House ({{ listingTotal }})</h3>
+        <h2 class="title is-3">Auction House ({{ listingTotal }})</h2>
         <div v-if="listings.length > 0" class="ah-results">
             <div class="result-headings columns is-centered has-text-weight-semibold">
-                <div class="column" v-if="fields.itemId" v-on:click="setSort('item_id')" style="color:#888;">Item Id</div>
-                <div class="column" v-if="fields.icon">Icon</div>
-                <div class="column" v-if="fields.itemName" v-on:click="setSort('item_name')">Item</div>
-                <div class="column" v-if="fields.stack">Stack</div>
-                <div class="column" v-if="fields.price" v-on:click="setSort('ah_price')">Price</div>
-                <div class="column" v-if="fields.listDate" v-on:click="setSort('ah_date')">List Date</div>
-                <div class="column" v-if="fields.salePrice" v-on:click="setSort('ah_sale')">Sale</div>
-                <div class="column" v-if="fields.saleDate" v-on:click="setSort('ah_saledate')">Sale Date</div>
-                <div class="column" v-if="fields.profit">Profit</div>
-                <div class="column" v-if="fields.seller" v-on:click="setSort('character_name')">Character</div>
-                <div class="column" v-if="fields.actions" style="color:#A74436;">Actions</div>
+                <div class="column" v-if="fields.itemId" v-on:click="setSort('item_id')" style="color:#888;">
+                    <div class="title is-5">Item Id</div>
+                </div>
+                <div class="column" v-if="fields.icon">
+                    <div class="title is-5">Icon</div>
+                </div>
+                <div class="column" v-if="fields.itemName" v-on:click="setSort('item_name')">
+                    <div class="title is-5">Item</div>
+                </div>
+                <div class="column" v-if="fields.stack">
+                    <div class="title is-5">Stack</div>
+                </div>
+                <div class="column" v-if="fields.price" v-on:click="setSort('ah_price')">
+                    <div class="title is-5">Price</div>
+                </div>
+                <div class="column" v-if="fields.listDate" v-on:click="setSort('ah_date')">
+                    <div class="title is-5">List Date</div>
+                </div>
+                <div class="column" v-if="fields.salePrice" v-on:click="setSort('ah_sale')">
+                    <div class="title is-5">Sale</div>
+                </div>
+                <div class="column" v-if="fields.saleDate" v-on:click="setSort('ah_saledate')">
+                    <div class="title is-5">Sale Date</div>
+                </div>
+                <div class="column" v-if="fields.profit">
+                    <div class="title is-5">Profit</div>
+                </div>
+                <div class="column" v-if="fields.seller" v-on:click="setSort('character_name')">
+                    <div class="title is-5">Character</div>
+                </div>
+                <div class="column" v-if="fields.actions" style="color:#A74436;">
+                    <div class="title is-5">Actions</div>
+                </div>
             </div>
             <app-listing v-for="(listing, index) in listings" :listing="listing" :key="'listing' + index" :fields="fields" :index="index"></app-listing>
-            <div v-if="pages > 1 && currentPage !== 1" v-on:click="prevPage" style="float: left">
+            <div v-if="pages > 1 && currentPage !== 1" v-on:click="prevPage" class="button is-dark is-pulled-left">
                 Prev
             </div>
-            <div v-if="currentPage < pages" v-on:click="nextPage" style="float: right">
+            <div v-if="currentPage < pages" v-on:click="nextPage" class="button is-dark is-pulled-right">
                 Next
             </div>
         </div>
@@ -49,7 +71,7 @@ export default {
     },
     pages () {
       return this.listingTotal > this.maxResults ?
-        Math.round(this.listingTotal / this.maxResults) : 1
+        Math.ceil(this.listingTotal / this.maxResults) : 1
     },
     url () {
       return '/data/auction-house' +
@@ -129,22 +151,18 @@ export default {
 
 <style lang="scss">
     .ah-results {
-        width: 100%;
         margin: 0 0 20px 0;
-        border-top: solid 1px #ddd;
-        border-left: solid 1px #ddd;
-        box-shadow: 0 2px 0 #eee;
+        .button {
+            margin-bottom: 20px;
+        }
         .result-headings {
             .column {
                 color: #000;
-                box-shadow: 0 2px 0 #eee;
                 padding: 5px 10px;
             }
         }
         .column {
-            border-right: solid 1px #ddd;
-            border-bottom: solid 1px #ddd;
-            font-size: 12px;
+            border: solid 1px #ddd;
             &:hover {
                 background-color: #f5f5f5;
             }
