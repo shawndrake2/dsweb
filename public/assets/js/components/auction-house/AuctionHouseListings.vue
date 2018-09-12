@@ -127,25 +127,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .ah-results {
         width: 100%;
         margin: 0 0 20px 0;
-        border-top:solid 1px #ddd;
-        border-left:solid 1px #ddd;
+        border-top: solid 1px #ddd;
+        border-left: solid 1px #ddd;
         box-shadow: 0 2px 0 #eee;
-    }
-    .result-headings .column {
-        color: #000;
-        box-shadow: 0 2px 0 #eee;
-        padding: 5px 10px;
-    }
-    .ah-results .column {
-        border-right: solid 1px #ddd;
-        border-bottom:solid 1px #ddd;
-        font-size: 12px;
-    }
-    .ah-results .column:hover {
-        background-color: #f5f5f5;
+        .result-headings {
+            .column {
+                color: #000;
+                box-shadow: 0 2px 0 #eee;
+                padding: 5px 10px;
+            }
+        }
+        .column {
+            border-right: solid 1px #ddd;
+            border-bottom: solid 1px #ddd;
+            font-size: 12px;
+            &:hover {
+                background-color: #f5f5f5;
+            }
+        }
     }
 </style>

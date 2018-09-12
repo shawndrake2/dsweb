@@ -102,13 +102,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .search-category {
         font-size: 15px;
         padding: 5px;
         opacity: 0.6;
-    }
-    .search-category:hover {
-        opacity: 1;
+        &:hover {
+            opacity: 1;
+        }
     }
 </style>

@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   html, body {
     font-size: 12px;
     font-family: Verdana;
