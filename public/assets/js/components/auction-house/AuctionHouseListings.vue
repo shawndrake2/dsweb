@@ -24,7 +24,7 @@
                            type="radio"
                            name="limit"
                            :value="n * 20"
-                           :checked="value === maxResults"
+                           :checked="(n * 20) === maxResults"
                            v-model="maxResults">
                     <label :for="'limit-' + n">{{ n * 20 }}</label>
                 </div>
@@ -103,7 +103,22 @@ export default {
     }
   },
   created () {
-    this.fetchData()
+    const maxResults = localStorage.getItem('ahListings_maxResults')
+    if (maxResults) {
+      this.maxResults = maxResults
+    }
+    const sort = localStorage.getItem('ahListings_sort')
+    if (sort) {
+      this.sort = sort
+    }
+    const status = localStorage.getItem('ahListings_status')
+    if (status) {
+      this.status = status
+    }
+    const toggleSort = localStorage.getItem('ahListings_toggleSort')
+    if (toggleSort) {
+      this.toggleSort = toggleSort
+    }
   },
   data () {
     return {
@@ -123,6 +138,7 @@ export default {
         seller: true,
         stack: true
       },
+      initialized: false,
       listings: [],
       listingTotal: 0,
       maxResults: 20,
@@ -173,16 +189,22 @@ export default {
     }
   },
   watch: {
+    // @TODO Right now when the component is built, data is fetched for every stored configuration when it gets set
+    //       from local storage. We need a better way to manage this
     maxResults: function () {
+      localStorage.setItem('ahListings_maxResults', this.maxResults)
       this.fetchData()
     },
     sort: function () {
+      localStorage.setItem('ahListings_sort', this.sort)
       this.fetchData()
     },
     status: function () {
+      localStorage.setItem('ahListings_status', this.status)
       this.fetchData()
     },
     toggleSort: function () {
+      localStorage.setItem('ahListings_toggleSort', this.toggleSort)
       this.fetchData()
     }
   }
