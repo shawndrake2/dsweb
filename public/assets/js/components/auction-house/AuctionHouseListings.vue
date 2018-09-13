@@ -145,12 +145,12 @@ export default {
       sort: 'item_name',
       sortOptions: {
         "item_id": "Item Id",
-        "item_name": "Item",
-        "ah_price": "Price",
-        "ah_date": "List Date",
-        "ah_sale": "Sale",
-        "ah_saledate": "Sale Date",
-        "character_name": "Character"
+        "item_name": "Item Name",
+        "ah_price": "Listed Price",
+        "ah_date": "Listed Date",
+        "ah_sale": "Price Paid",
+        "ah_saledate": "Sell Date",
+        "character_name": "Seller"
       },
       toggleSort: false,
       status: 'all',
