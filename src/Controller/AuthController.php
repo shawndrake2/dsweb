@@ -8,9 +8,8 @@ class AuthController extends AbstractController
 {
     public function login()
     {
-        // @TODO Stubbed out credentials for now
-        $charName = 'ryken';
-        $password = '*1FB4C5B3C86E9AF2D96D552E233FC218BA587298';
+        $charName = $_POST['characterName'] ?? null;
+        $password = $_POST['password'] ?? null;
 
         $authData = new AuthData();
         $char = $authData->loginChar($charName, $password);
