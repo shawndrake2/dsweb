@@ -3,6 +3,7 @@
 namespace DsWeb\Helper;
 
 use DsWeb\Controller\AuctionHouseController;
+use DsWeb\Controller\AuthController;
 use DsWeb\Controller\CharacterController;
 use DsWeb\Controller\MobController;
 use DsWeb\Controller\SearchController;
@@ -18,6 +19,7 @@ class RouteHelper
             "${rootDir}/router/router.php",
             function (RouteCollection $routes) {
 
+                // GET routes
                 $routes->get(
                     '/data/auction-house',
                     ['handler' => [AuctionHouseController::class, 'getListings']]
@@ -43,12 +45,16 @@ class RouteHelper
                     ['handler' => [ServerController::class, 'getServerConfig']]
                 );
 
-//
-//                // @TODO This route still needs proper implementation
-//                $routes->post(
-//                    '/requestaccount',
-//                    ['handler' => [AuthController::class, 'requestAccount']]
-//                );
+                // POST routes
+                // @TODO Add GET route for testing temporarily
+                $routes->get(
+                    '/auth/login',
+                    ['handler' => [AuthController::class, 'login']]
+                );
+                $routes->post(
+                    '/auth/login',
+                    ['handler' => [AuthController::class, 'login']]
+                );
             }
         );
     }

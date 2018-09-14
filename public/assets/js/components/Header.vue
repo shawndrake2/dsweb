@@ -7,19 +7,33 @@
                 </h1>
             </div>
             <div class="column">
-                <a class="button is-dark is-pulled-right">Login</a>
+                <app-auth :classes="authStyles"></app-auth>
             </div>
         </div>
     </header>
 </template>
 
 <script>
-export default {
-  name: 'Header',
-  props: {
-    siteName: String
+  import Auth from './common/Auth.vue'
+
+  export default {
+    name: 'Header',
+    components: {
+      'app-auth': Auth
+    },
+    props: {
+      siteName: String
+    },
+    data () {
+      return {
+        "authStyles": [
+          'button',
+          'is-dark',
+          'is-pulled-right'
+        ]
+      }
+    }
   }
-}
 </script>
 
 <style lang="scss">

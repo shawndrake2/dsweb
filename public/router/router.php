@@ -58,6 +58,26 @@ return function ($method, $uri) {
                     }
                 }
             }
+            if ($s0 === 'auth' && $s1 === 'login') {
+                switch ($method) {
+                    case 'GET':
+                    case 'HEAD':
+                        return [2, ['handler' => [
+                            0 => 'DsWeb\\Controller\\AuthController',
+                            1 => 'login',
+                        ]], []];
+                    case 'POST':
+                        return [2, ['handler' => [
+                            0 => 'DsWeb\\Controller\\AuthController',
+                            1 => 'login',
+                        ]], []];
+                    default:
+                        $allowedHttpMethods[] = 'GET';
+                        $allowedHttpMethods[] = 'HEAD';
+                        $allowedHttpMethods[] = 'POST';
+                        break;
+                }
+            }
             return isset($allowedHttpMethods) ? [1, $allowedHttpMethods] : [0];
             break;
         
